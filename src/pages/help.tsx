@@ -4,6 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
 import Seo from 'components/seo/seo';
+import { getLayout } from 'components/layout/layout';
 
 export default function HelpPage() {
   const { t } = useTranslation();
@@ -23,6 +24,8 @@ export default function HelpPage() {
     </>
   );
 }
+
+HelpPage.getLayout = getLayout;
 
 export const getStaticProps: GetStaticProps = async ({ locale }) => {
   return {
