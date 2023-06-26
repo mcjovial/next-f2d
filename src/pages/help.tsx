@@ -3,11 +3,13 @@ import { faq } from 'utilities/static/faq';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
+import Seo from 'components/seo/seo';
 
 export default function HelpPage() {
   const { t } = useTranslation();
   return (
     <>
+      <Seo title="Help" url="help" />
       <section className="py-8 px-4 lg:py-10 lg:px-8 xl:py-14 xl:px-16 2xl:px-20">
         <header className="mb-8 text-center">
           <h1 className="text-xl font-bold md:text-2xl xl:text-3xl">
