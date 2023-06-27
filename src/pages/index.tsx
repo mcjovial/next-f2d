@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import { useTranslation } from 'next-i18next'
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations'
 import { GetStaticProps } from 'next'
+import { getLayout } from '@/components/layout/layout'
 
 
 const inter = Inter({ subsets: ['latin'] })
@@ -15,7 +16,7 @@ export const getStaticProps: GetStaticProps = async ({ locale }) => {
   }
 }
 
-export default function Home() {
+function Home() {
   const { t } = useTranslation();
   return (
     <main
@@ -128,3 +129,7 @@ export default function Home() {
     </main>
   )
 }
+
+Home.getLayout = getLayout;
+
+export default Home;

@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import cn from 'classnames';
 import { motion, AnimatePresence } from 'framer-motion';
-import { MinusIcon } from 'components/icons/minus-icon';
-import { PlusIcon } from 'components/icons/plus-icon';
-import { heightCollapse } from 'lib/motion/height-collapse';
+import { MinusIcon } from '@/components/icons/minus-icon';
+import { PlusIcon } from '@/components/icons/plus-icon';
+import { heightCollapse } from '@/lib/motion/height-collapse';
 import { useTranslation } from 'next-i18next';
 
 type CollapseProps = {
