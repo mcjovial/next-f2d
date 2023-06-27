@@ -8,6 +8,7 @@ import { NextPageWithLayout } from '@/types';
 import QueryProvider from '@/utilities/client/query-provider';
 import { SearchProvider } from '@/components/ui/search/search.context';
 import { ModalProvider } from '@/components/ui/modal/modal.context';
+import ManagedModal from '@/components/ui/modal/managed-modal';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -24,6 +25,7 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
         <SearchProvider>
           <ModalProvider>
             {getLayout(<Component {...pageProps} />)}
+            <ManagedModal />
           </ModalProvider>
         </SearchProvider>
       </QueryProvider>
