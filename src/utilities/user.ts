@@ -6,6 +6,8 @@ import { useMutation, useQuery, useQueryClient } from "react-query";
 import client from "./client";
 import { API_ENDPOINTS } from "./client/api-endpoints";
 import { signOut as socialLoginSignOut } from 'next-auth/react';
+import { useTranslation } from 'next-i18next';
+import { toast } from 'react-toastify';
 
 export function useUser() {
   const { isAuthorize: isAuthorized } = useAuth();
@@ -42,6 +44,7 @@ export function useLogout() {
       queryClient.clear();
     },
   });
+
   function handleLogout() {
     socialLoginSignOut({ redirect: false });
     signOut();
@@ -50,3 +53,20 @@ export function useLogout() {
     mutate: handleLogout,
   };
 }
+
+export const useContact = () => {
+  const { t } = useTranslation('common');
+
+  return useMutation(client.users.contactUs, {
+    onSuccess: (data) => {
+      if (data.success) {
+        toast.success(t(data.message));
+      } else {
+        toast.error(t(data.message));
+      }
+    },
+    onError: (err) => {
+      console.log(err);
+    },
+  });
+};

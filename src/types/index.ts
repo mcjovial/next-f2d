@@ -176,6 +176,16 @@ export interface CreateContactUsInput {
   description: string;
 }
 
+export interface UserAddress {
+  street_address: string;
+  country: string;
+  city: string;
+  state: string;
+  zip: string;
+  billing_address?: Address;
+  shipping_address?: Address;
+}
+
 export interface Category {
   id: string;
   name: string;
