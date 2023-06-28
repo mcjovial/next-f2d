@@ -40,6 +40,17 @@ export interface QueryOptions {
 
 export interface SettingsQueryOptions extends QueryOptions {}
 
+export interface CategoryQueryOptions extends QueryOptions {
+  language: string;
+  parent: string | null;
+  type: string;
+}
+
+export interface TagQueryOptions extends QueryOptions {
+  parent: string | null;
+  type: string;
+}
+
 export interface Address {
   id: string;
   title: string;
@@ -164,3 +175,38 @@ export interface CreateContactUsInput {
   subject: string;
   description: string;
 }
+
+export interface Category {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  image: string;
+  parent_id?: number | null;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
+  slug: string;
+}
+
+export interface PaginatorInfo<T> {
+  current_page: number;
+  data: T[];
+  first_page_url: string;
+  from: number;
+  last_page: number;
+  last_page_url: string;
+  links: any[];
+  next_page_url: string | null;
+  path: string;
+  per_page: number;
+  prev_page_url: string | null;
+  to: number;
+  total: number;
+}
+
+
+export interface CategoryPaginator extends PaginatorInfo<Category> {}
+export interface TagPaginator extends PaginatorInfo<Tag> {}

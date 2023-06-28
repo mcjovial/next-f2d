@@ -1,4 +1,4 @@
-import { AuthResponse, ChangePasswordUserInput, CreateContactUsInput, ForgotPasswordUserInput, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, RegisterUserInput, ResetPasswordUserInput, SendOtpCodeInputType, Settings, SettingsQueryOptions, SocialLoginInputType, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType } from "@/types";
+import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CreateContactUsInput, ForgotPasswordUserInput, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, RegisterUserInput, ResetPasswordUserInput, SendOtpCodeInputType, Settings, SettingsQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType } from "@/types";
 import { HttpClient } from "./http-client";
 import { API_ENDPOINTS } from "./api-endpoints";
 
@@ -62,6 +62,20 @@ class Client {
       HttpClient.post<any>(API_ENDPOINTS.USERS_SUBSCRIBE_TO_NEWSLETTER, input),
     contactUs: (input: CreateContactUsInput) =>
       HttpClient.post<any>(API_ENDPOINTS.USERS_CONTACT_US, input),
+  };
+
+  categories = {
+    all: ({ type, ...params }: Partial<CategoryQueryOptions>) =>
+      HttpClient.get<CategoryPaginator>(API_ENDPOINTS.CATEGORIES, {
+        searchJoin: 'and',
+        ...params,
+        ...(type && { search: HttpClient.formatSearchParams({ type }) }),
+      }),
+  };
+
+  tags = {
+    all: (params: Partial<TagQueryOptions>) =>
+      HttpClient.get<TagPaginator>(API_ENDPOINTS.TAGS, params),
   };
 }
 

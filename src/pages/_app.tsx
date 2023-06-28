@@ -9,6 +9,8 @@ import QueryProvider from '@/utilities/client/query-provider';
 import { SearchProvider } from '@/components/ui/search/search.context';
 import { ModalProvider } from '@/components/ui/modal/modal.context';
 import ManagedModal from '@/components/ui/modal/managed-modal';
+import { CartProvider } from '@/store/quick-cart/cart.context';
+import ManagedDrawer from '@/components/ui/drawer/managed-drawer';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -24,8 +26,13 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
       <QueryProvider pageProps={pageProps}>
         <SearchProvider>
           <ModalProvider>
-            {getLayout(<Component {...pageProps} />)}
-            <ManagedModal />
+            <CartProvider>
+              <>
+                {getLayout(<Component {...pageProps} />)}
+              </>  
+              <ManagedModal />
+              <ManagedDrawer />
+            </CartProvider>
           </ModalProvider>
         </SearchProvider>
       </QueryProvider>

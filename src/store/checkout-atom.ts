@@ -2,6 +2,14 @@ import { CHECKOUT } from "@/lib/constants";
 import { atom } from "jotai";
 import { atomWithStorage } from 'jotai/utils';
 
+interface VerifiedResponse {
+  total_tax: number;
+  shipping_charge: number;
+  unavailable_products: any[];
+  wallet_amount: number;
+  wallet_currency: number;
+}
+
 interface CheckoutState {
   // billing_address: Address | null;
   // shipping_address: Address | null;
@@ -31,3 +39,11 @@ export const checkoutAtom = atomWithStorage(CHECKOUT, defaultCheckout);
 export const clearCheckoutAtom = atom(null, (_get, set, _data) => {
   return set(checkoutAtom, defaultCheckout);
 });
+
+export const verifiedResponseAtom = atom(
+  (get) => get(checkoutAtom).verified_response,
+  (get, set, data: VerifiedResponse | null) => {
+    const prev = get(checkoutAtom);
+    return set(checkoutAtom, { ...prev, verified_response: data });
+  }
+);

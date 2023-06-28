@@ -1,5 +1,6 @@
 import Footer from "./footer";
 import Header from "./header";
+import MobileNavigation from "./mobile-navigation";
 
 export default function SiteLayout({ children }: React.PropsWithChildren) {
   return (
@@ -7,6 +8,7 @@ export default function SiteLayout({ children }: React.PropsWithChildren) {
       <Header />
       {children}
       <Footer />
+      <MobileNavigation />
     </div>
   )
 }
