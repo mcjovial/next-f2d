@@ -93,7 +93,7 @@ export const siteSettings = {
   },
   footer: {
     copyright: {
-      name: 'RedQ, Inc',
+      name: 'Famr2Door Express',
       href: 'https://redq.io/',
     },
     address: '2429 River Drive, Suite 35 Cottonhall, CA 2296 United Kingdom',

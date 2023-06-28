@@ -1,3 +1,4 @@
+import Footer from "./footer";
 import Header from "./header";
 
 export default function SiteLayout({ children }: React.PropsWithChildren) {
@@ -5,6 +6,7 @@ export default function SiteLayout({ children }: React.PropsWithChildren) {
     <div className="flex min-h-screen flex-col bg-gray-100 transition-colors duration-150">
       <Header />
       {children}
+      <Footer />
     </div>
   )
 }

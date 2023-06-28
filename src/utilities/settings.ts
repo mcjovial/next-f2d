@@ -1,8 +1,9 @@
 import { useRouter } from 'next/router';
-import { useQuery } from 'react-query';
+import { useMutation, useQuery } from 'react-query';
 import { API_ENDPOINTS } from './client/api-endpoints';
 import { Settings } from '@/types';
 import client from './client';
+import { useState } from 'react';
 
 export function useSettings() {
 
@@ -22,5 +23,23 @@ export function useSettings() {
     settings: data?.options ?? {},
     isLoading,
     error,
+  };
+}
+
+export function useSubscription() {
+  let [isSubscribed, setIsSubscribed] = useState(false);
+
+  const subscription = useMutation(client.users.subscribe, {
+    onSuccess: () => {
+      setIsSubscribed(true);
+    },
+    onError: () => {
+      setIsSubscribed(false);
+    },
+  });
+
+  return {
+    ...subscription,
+    isSubscribed,
   };
 }
