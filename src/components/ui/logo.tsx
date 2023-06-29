@@ -1,5 +1,5 @@
 import cn from 'classnames';
-import { useSettings } from '@/utilities/settings';
+import { useSettings } from '@/utilities/queries/settings';
 import Image from 'next/image';
 import { logoPlaceholder } from '@/lib/placeholders';
 import Link from './link';

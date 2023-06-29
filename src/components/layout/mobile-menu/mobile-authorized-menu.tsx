@@ -3,7 +3,7 @@ import { useTranslation } from 'next-i18next';
 import DrawerWrapper from '@/components/ui/drawer/drawer-wrapper';
 import { useAtom } from 'jotai';
 import { drawerAtom } from '@/store/drawer-atom';
-import { useLogout, useUser } from '@/utilities/user';
+import { useLogout, useUser } from '@/utilities/queries/user';
 import { siteSettings } from '@/config/site-settings';
 
 export default function MobileAuthorizedMenu() {
@@ -20,16 +20,16 @@ export default function MobileAuthorizedMenu() {
 
   return (
     <DrawerWrapper>
-      <ul className="flex-grow">
-        <li className="flex w-full items-center justify-between border-t border-dashed border-border-200 bg-gray-100 px-5 pt-3 text-sm font-semibold capitalize text-body focus:outline-none ltr:text-left rtl:text-right md:px-8">
+      <ul className='flex-grow'>
+        <li className='flex w-full items-center justify-between border-t border-dashed border-border-200 bg-gray-100 px-5 pt-3 text-sm font-semibold capitalize text-body focus:outline-none ltr:text-left rtl:text-right md:px-8'>
           <span>{t('text-total-points')}</span>
           <span>{me?.wallet?.total_points ?? 0}</span>
         </li>
-        <li className="flex w-full items-center justify-between bg-gray-100 px-5 pt-3 text-sm font-semibold capitalize text-body focus:outline-none ltr:text-left rtl:text-right md:px-8">
+        <li className='flex w-full items-center justify-between bg-gray-100 px-5 pt-3 text-sm font-semibold capitalize text-body focus:outline-none ltr:text-left rtl:text-right md:px-8'>
           <span>{t('text-points-used')}</span>
           <span>{me?.wallet?.points_used ?? 0}</span>
         </li>
-        <li className="flex w-full items-center justify-between border-b border-dashed border-border-200 bg-gray-100 px-5 py-3 text-sm font-semibold capitalize text-body focus:outline-none ltr:text-left rtl:text-right md:px-8">
+        <li className='flex w-full items-center justify-between border-b border-dashed border-border-200 bg-gray-100 px-5 py-3 text-sm font-semibold capitalize text-body focus:outline-none ltr:text-left rtl:text-right md:px-8'>
           <span>{t('text-available-points')}</span>
           <span>{me?.wallet?.available_points ?? 0}</span>
         </li>
@@ -37,7 +37,7 @@ export default function MobileAuthorizedMenu() {
         {siteSettings.authorizedLinksMobile.map(({ href, label }) => (
           <li key={`${href}${label}`}>
             <span
-              className="block cursor-pointer px-5 py-3 text-sm font-semibold capitalize text-heading transition duration-200 hover:text-accent md:px-8"
+              className='block cursor-pointer px-5 py-3 text-sm font-semibold capitalize text-heading transition duration-200 hover:text-accent md:px-8'
               onClick={() => handleClick(href)}
             >
               {t(label)}
@@ -47,7 +47,7 @@ export default function MobileAuthorizedMenu() {
 
         <li>
           <span
-            className="block cursor-pointer px-5 py-3 text-sm font-semibold capitalize text-heading transition duration-200 hover:text-accent md:px-8"
+            className='block cursor-pointer px-5 py-3 text-sm font-semibold capitalize text-heading transition duration-200 hover:text-accent md:px-8'
             onClick={() => logout()}
           >
             {t('auth-menu-logout')}

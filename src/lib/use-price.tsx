@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
 import { useRouter } from 'next/router';
-import { useSettings } from '@/utilities/settings';
+import { useSettings } from '@/utilities/queries/settings';
 
 export function formatPrice({
   amount,

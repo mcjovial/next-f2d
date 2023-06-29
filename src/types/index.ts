@@ -6,6 +6,11 @@ export type NextPageWithLayout<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
+export interface GetParams {
+  slug: string;
+  language?: string;
+}
+
 export interface Settings {
   id: string;
   name: string;
@@ -49,6 +54,42 @@ export interface CategoryQueryOptions extends QueryOptions {
 export interface TagQueryOptions extends QueryOptions {
   parent: string | null;
   type: string;
+}
+
+export interface ShopQueryOptions extends QueryOptions {
+  name: string;
+  is_active: number;
+}
+
+export interface ProductQueryOptions extends QueryOptions {
+  shop_id: string;
+  sortedBy: string;
+  orderBy: string;
+  name: string;
+  categories: string;
+  tags: string;
+  type: string;
+  manufacturer: string;
+  author: string;
+  price: string;
+  min_price: string;
+  max_price: string;
+  language: string;
+  searchType: string;
+  searchQuery: string;
+  text: string;
+}
+
+export interface QuestionQueryOptions extends QueryOptions {
+  product_id: string;
+  question?: string;
+}
+
+export interface PopularProductQueryOptions extends QueryOptions {
+  language: string;
+  type_slug: string;
+  with: string;
+  range: number;
 }
 
 export interface Address {
@@ -176,6 +217,25 @@ export interface CreateContactUsInput {
   description: string;
 }
 
+export interface CreateFeedbackInput {
+  model_id: string;
+  model_type: string;
+  positive?: boolean;
+  negative?: boolean;
+}
+
+export interface CreateQuestionInput {
+  question: string;
+  product_id: string;
+  shop_id: string;
+}
+
+export interface CreateAbuseReportInput {
+  model_id: string;
+  model_type: string;
+  message: string;
+}
+
 export interface UserAddress {
   street_address: string;
   country: string;
@@ -201,6 +261,90 @@ export interface Tag {
   slug: string;
 }
 
+export interface Shop {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  cover_image: string;
+}
+
+export interface Product {
+  id: string;
+  name: string;
+  slug: string;
+  sku: string;
+  tags: Tag[];
+  is_digital: boolean;
+  product_type: string;
+  description: string;
+  price: number;
+  sale_price: number;
+  min_price: number;
+  max_price: number;
+  image: string;
+  gallery: string[];
+  shop: Shop;
+  unit: string;
+  categories: Category[];
+  quantity: number;
+  total_reviews: number;
+  ratings: number;
+  in_wishlist: boolean;
+  variations: object[];
+  variation_options: object[];
+  rating_count: RatingCount[];
+  related_products: Product[];
+  created_at: string;
+  updated_at: string;
+  language: string;
+}
+
+export interface RatingCount {
+  rating: number;
+  total: number;
+}
+
+export interface Question {
+  id: string;
+  answer: string;
+  my_feedback: Feedback;
+  negative_feedbacks_count: number;
+  positive_feedbacks_count: number;
+  question: string;
+  created_at: string;
+  updated_at: string;
+  product: Product;
+}
+
+export interface Feedback {
+  id: string;
+  user_id: string;
+  model_type: string;
+  model_id: string;
+  positive: boolean;
+  negative: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Review {
+  id: string;
+  name: string;
+  rating: number;
+  comment: string;
+  photos: string[];
+  user: User;
+  product: Product;
+  shop: Shop;
+  feedbacks: Feedback[];
+  positive_feedbacks_count: number;
+  negative_feedbacks_count: number;
+  my_feedback: Feedback;
+  created_at: string;
+  updated_at: string;
+}
+
 export interface PaginatorInfo<T> {
   current_page: number;
   data: T[];
@@ -220,3 +364,6 @@ export interface PaginatorInfo<T> {
 
 export interface CategoryPaginator extends PaginatorInfo<Category> {}
 export interface TagPaginator extends PaginatorInfo<Tag> {}
+export interface ShopPaginator extends PaginatorInfo<Shop> {}
+export interface ProductPaginator extends PaginatorInfo<Product> {}
+export interface QuestionPaginator extends PaginatorInfo<Question> {}

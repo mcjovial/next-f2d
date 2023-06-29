@@ -20,4 +20,11 @@ export const API_ENDPOINTS = {
   OTP_LOGIN: '/otp-login',
   CATEGORIES: '/categories',
   TAGS: '/tags',
+  SHOPS: '/shops',
+  PRODUCTS: '/products',
+  PRODUCTS_POPULAR: '/popular-products',
+  PRODUCTS_REVIEWS: '/reviews',
+  PRODUCTS_REVIEWS_ABUSE_REPORT: '/abusive_reports',
+  PRODUCTS_QUESTIONS: '/questions',
+  FEEDBACK: '/feedbacks',
 }

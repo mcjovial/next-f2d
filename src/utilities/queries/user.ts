@@ -3,11 +3,11 @@ import { useAuth } from "@/store/authorization-atom";
 import { clearCheckoutAtom } from "@/store/checkout-atom";
 import { useAtom } from "jotai";
 import { useMutation, useQuery, useQueryClient } from "react-query";
-import client from "./client";
-import { API_ENDPOINTS } from "./client/api-endpoints";
-import { signOut as socialLoginSignOut } from 'next-auth/react';
-import { useTranslation } from 'next-i18next';
-import { toast } from 'react-toastify';
+import client from "../client";
+import { API_ENDPOINTS } from "../client/api-endpoints";
+import { signOut as socialLoginSignOut } from "next-auth/react";
+import { useTranslation } from "next-i18next";
+import { toast } from "react-toastify";
 
 export function useUser() {
   const { isAuthorize: isAuthorized } = useAuth();
@@ -34,7 +34,7 @@ export function useLogout() {
   const { mutate: signOut } = useMutation(client.users.logout, {
     onSuccess: (data) => {
       if (data) {
-        setToken('');
+        setToken("");
         setAuthorized(false);
         // resetCheckout();
         queryClient.refetchQueries(API_ENDPOINTS.USERS_ME);
@@ -55,7 +55,7 @@ export function useLogout() {
 }
 
 export const useContact = () => {
-  const { t } = useTranslation('common');
+  const { t } = useTranslation("common");
 
   return useMutation(client.users.contactUs, {
     onSuccess: (data) => {

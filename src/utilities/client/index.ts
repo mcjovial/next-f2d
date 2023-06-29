@@ -1,4 +1,4 @@
-import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CreateContactUsInput, ForgotPasswordUserInput, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, RegisterUserInput, ResetPasswordUserInput, SendOtpCodeInputType, Settings, SettingsQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType } from "@/types";
+import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CreateAbuseReportInput, CreateContactUsInput, CreateFeedbackInput, CreateQuestionInput, Feedback, ForgotPasswordUserInput, GetParams, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, Product, ProductPaginator, ProductQueryOptions, QuestionPaginator, QuestionQueryOptions, RegisterUserInput, ResetPasswordUserInput, Review, SendOtpCodeInputType, Settings, SettingsQueryOptions, Shop, ShopPaginator, ShopQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType } from "@/types";
 import { HttpClient } from "./http-client";
 import { API_ENDPOINTS } from "./api-endpoints";
 
@@ -76,6 +76,78 @@ class Client {
   tags = {
     all: (params: Partial<TagQueryOptions>) =>
       HttpClient.get<TagPaginator>(API_ENDPOINTS.TAGS, params),
+  };
+
+  shops = {
+    all: (params: Partial<ShopQueryOptions>) =>
+      HttpClient.get<ShopPaginator>(API_ENDPOINTS.SHOPS, {
+        search: HttpClient.formatSearchParams({
+          is_active: '1',
+        }),
+        ...params,
+      }),
+    get: (slug: string) =>
+      HttpClient.get<Shop>(`${API_ENDPOINTS.SHOPS}/${slug}`),
+  };
+
+  products = {
+    all: ({
+      type,
+      categories,
+      name,
+      shop_id,
+      author,
+      manufacturer,
+      min_price,
+      max_price,
+      tags,
+      ...params
+    }: Partial<ProductQueryOptions>) =>
+      HttpClient.get<ProductPaginator>(API_ENDPOINTS.PRODUCTS, {
+        searchJoin: 'and',
+        with: 'type;author',
+        ...params,
+        search: HttpClient.formatSearchParams({
+          type,
+          categories,
+          name,
+          shop_id,
+          author,
+          manufacturer,
+          min_price,
+          max_price,
+          tags,
+          status: 'publish',
+        }),
+      }),
+    popular: (params: Partial<ProductQueryOptions>) =>
+      HttpClient.get<Product[]>(API_ENDPOINTS.PRODUCTS_POPULAR, params),
+
+    questions: ({ question, ...params }: QuestionQueryOptions) =>
+      HttpClient.get<QuestionPaginator>(API_ENDPOINTS.PRODUCTS_QUESTIONS, {
+        searchJoin: 'and',
+        ...params,
+        search: HttpClient.formatSearchParams({
+          question,
+        }),
+      }),
+
+    get: ({ slug, language }: GetParams) =>
+      HttpClient.get<Product>(`${API_ENDPOINTS.PRODUCTS}/${slug}`, {
+        language,
+        searchJoin: 'and',
+        with: 'categories;shop;type;variations;variations.attribute.values;manufacturer;variation_options;tags;author',
+      }),
+
+    createFeedback: (input: CreateFeedbackInput) =>
+      HttpClient.post<Feedback>(API_ENDPOINTS.FEEDBACK, input),
+    createAbuseReport: (input: CreateAbuseReportInput) =>
+      HttpClient.post<Review>(
+        API_ENDPOINTS.PRODUCTS_REVIEWS_ABUSE_REPORT,
+        input
+      ),
+    createQuestion: (input: CreateQuestionInput) =>
+      HttpClient.post<Review>(API_ENDPOINTS.PRODUCTS_QUESTIONS, input),
   };
 }
 

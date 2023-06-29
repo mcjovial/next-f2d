@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import Scrollbar from '@/components/ui/scrollbar';
 import { useTranslation } from 'react-i18next';
 import ErrorMessage from '@/components/ui/error-message';
-import { useTags } from '@/utilities/tag';
+import { useTags } from '@/utilities/queries/tag';
 import Spinner from '@/components/ui/loaders/spinner/spinner';
 
 interface Props {
@@ -36,10 +36,10 @@ const TagFilterView = ({ tags }: Props) => {
   }
 
   return (
-    <div className="relative -mb-5 after:absolute after:bottom-0 after:flex after:h-6 after:w-full after:bg-gradient-to-t after:from-white ltr:after:left-0 rtl:after:right-0">
-      <Scrollbar style={{ maxHeight: '400px' }} className="pb-6">
-        <span className="sr-only">{t('text-tags')}</span>
-        <div className="grid grid-cols-1 gap-4">
+    <div className='relative -mb-5 after:absolute after:bottom-0 after:flex after:h-6 after:w-full after:bg-gradient-to-t after:from-white ltr:after:left-0 rtl:after:right-0'>
+      <Scrollbar style={{ maxHeight: '400px' }} className='pb-6'>
+        <span className='sr-only'>{t('text-tags')}</span>
+        <div className='grid grid-cols-1 gap-4'>
           <CheckboxGroup values={state} onChange={handleChange}>
             {tags.map((plan) => (
               <Checkbox
@@ -47,7 +47,7 @@ const TagFilterView = ({ tags }: Props) => {
                 label={plan.name}
                 name={plan.slug}
                 value={plan.slug}
-                theme="secondary"
+                theme='secondary'
               />
             ))}
           </CheckboxGroup>
@@ -59,12 +59,12 @@ const TagFilterView = ({ tags }: Props) => {
 
 const TagFilter = () => {
   const { tags, isLoading, error } = useTags({ limit: 100 });
-  let err:any = error;
+  let err: any = error;
   if (err) return <ErrorMessage message={err?.message} />;
   if (isLoading)
     return (
-      <div className="flex items-center justify-center w-full py-5">
-        <Spinner className="w-6 h-6" simple={true} />
+      <div className='flex items-center justify-center w-full py-5'>
+        <Spinner className='w-6 h-6' simple={true} />
       </div>
     );
 

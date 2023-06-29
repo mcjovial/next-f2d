@@ -1,18 +1,18 @@
-import { QueryOptions } from '@/types';
-import { useInfiniteQuery } from 'react-query';
-import client from './client';
-import { API_ENDPOINTS } from './client/api-endpoints';
+import { QueryOptions } from "@/types";
+import { useInfiniteQuery } from "react-query";
+import client from "../client";
+import { API_ENDPOINTS } from "../client/api-endpoints";
 import { useRouter } from "next/router";
-import { mapPaginatorData } from './data-mappers';
+import { mapPaginatorData } from "../data-mappers";
 
-export const useTags = (options: Pick<QueryOptions, 'limit'>) => {
+export const useTags = (options: Pick<QueryOptions, "limit">) => {
   const { locale } = useRouter();
-  
+
   const formattedOptions = {
     ...options,
-    language: locale
+    language: locale,
   };
-  
+
   const {
     data,
     isLoading,

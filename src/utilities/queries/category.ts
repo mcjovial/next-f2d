@@ -1,17 +1,17 @@
-import type { CategoryPaginator, CategoryQueryOptions } from '@/types';
-import { useInfiniteQuery } from 'react-query';
-import client from './client';
-import { API_ENDPOINTS } from './client/api-endpoints';
+import type { CategoryPaginator, CategoryQueryOptions } from "@/types";
+import { useInfiniteQuery } from "react-query";
+import client from "../client";
+import { API_ENDPOINTS } from "../client/api-endpoints";
 import { useRouter } from "next/router";
-import { mapPaginatorData } from './data-mappers';
+import { mapPaginatorData } from "../data-mappers";
 
 export function useCategories(options?: Partial<CategoryQueryOptions>) {
   const { locale } = useRouter();
 
   const formattedOptions = {
     ...options,
-    language: locale
-  }
+    language: locale,
+  };
 
   const {
     data,

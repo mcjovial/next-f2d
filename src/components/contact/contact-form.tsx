@@ -5,7 +5,7 @@ import Input from '@/components/ui/forms/input';
 import TextArea from '@/components/ui/forms/text-area';
 import { useTranslation } from 'next-i18next';
 import * as yup from 'yup';
-import { useContact } from '@/utilities/user';
+import { useContact } from '@/utilities/queries/user';
 
 const contactFormSchema = yup.object().shape({
   name: yup.string().required('error-name-required'),
@@ -31,33 +31,33 @@ const ContactForm = () => {
     >
       {({ register, formState: { errors } }) => (
         <>
-          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+          <div className='grid grid-cols-1 gap-6 sm:grid-cols-2'>
             <Input
               label={t('text-name')}
               {...register('name')}
-              variant="outline"
+              variant='outline'
               error={t(errors.name?.message!)}
             />
             <Input
               label={t('text-email')}
               {...register('email')}
-              type="email"
-              variant="outline"
+              type='email'
+              variant='outline'
               error={t(errors.email?.message!)}
             />
           </div>
           <Input
             label={t('text-subject')}
             {...register('subject')}
-            variant="outline"
-            className="my-6"
+            variant='outline'
+            className='my-6'
             error={t(errors.subject?.message!)}
           />
           <TextArea
             label={t('text-description')}
             {...register('description')}
-            variant="outline"
-            className="my-6"
+            variant='outline'
+            className='my-6'
             error={t(errors.description?.message!)}
           />
 

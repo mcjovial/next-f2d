@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import ErrorMessage from '../ui/error-message';
-import { useCategories } from '@/utilities/category';
+import { useCategories } from '@/utilities/queries/category';
 
 const StickySidebarListCategories = dynamic(
   () => import('@/components/categories/sticky-sidebar-list-categories')
