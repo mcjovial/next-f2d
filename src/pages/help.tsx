@@ -4,7 +4,7 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { useTranslation } from 'next-i18next';
 import { GetStaticProps } from 'next';
 import Seo from '@/components/seo/seo';
-import { getLayout } from '@/components/layout/layout';
+import { getLayout } from '@/components/layouts/layout';
 
 export default function HelpPage() {
   const { t } = useTranslation();

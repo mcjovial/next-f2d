@@ -7,7 +7,7 @@ import { formatAddress } from '@/lib/format-address';
 import isEmpty from 'lodash/isEmpty';
 import { getIcon } from '@/lib/get-icon';
 import * as socialIcons from '@/components/icons/social';
-import { getLayout } from '@/components/layout/layout';
+import { getLayout } from '@/components/layouts/layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ContactForm from '@/components/contact/contact-form';

@@ -11,7 +11,7 @@ class Client {
       input.forEach((attachment) => {
         formData.append('attachment[]', attachment);
       });
-      return HttpClient.post<string>(API_ENDPOINTS.UPLOADS, formData, {
+      return HttpClient.post<string[]>(API_ENDPOINTS.UPLOADS, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

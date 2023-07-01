@@ -52,10 +52,6 @@ export const siteSettings = {
       label: 'profile-sidebar-orders',
     },
     {
-      href: Routes.downloads,
-      label: 'profile-sidebar-downloads',
-    },
-    {
       href: Routes.wishlists,
       label: 'profile-sidebar-my-wishlist',
     },

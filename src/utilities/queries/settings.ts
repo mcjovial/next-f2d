@@ -4,6 +4,8 @@ import { API_ENDPOINTS } from "../client/api-endpoints";
 import { Settings } from "@/types";
 import client from "../client";
 import { useState } from "react";
+import { FileWithPath } from "react-dropzone";
+import { getPreviewImage } from "@/lib/get-preview-image";
 
 export function useSettings() {
   const { locale } = useRouter();
@@ -42,3 +44,27 @@ export function useSubscription() {
     isSubscribed,
   };
 }
+
+export const useUploads = ({ onChange, defaultFiles }: any) => {
+  const [files, setFiles] = useState<FileWithPath[]>(
+    getPreviewImage(defaultFiles)
+  );
+
+  const { mutate: upload, isLoading } = useMutation(client.settings.upload, {
+    onSuccess: (data) => {
+      if (onChange) {
+        const dataAfterRemoveTypename = data?.map(
+          ({ __typename, ...rest }: any) => rest
+        );
+        onChange(dataAfterRemoveTypename);
+        setFiles(getPreviewImage(dataAfterRemoveTypename));
+      }
+    },
+  });
+
+  function handleSubmit(data: File[]) {
+    upload(data);
+  }
+
+  return { mutate: handleSubmit, isLoading, files };
+};

@@ -209,3 +209,23 @@ export function useResetPassword() {
     },
   });
 }
+
+export const useUpdateUser = () => {
+  const { t } = useTranslation();
+  const queryClient = useQueryClient();
+  const { closeModal } = useModalAction();
+  return useMutation(client.users.update, {
+    onSuccess: (data) => {
+      if (data?.id) {
+        toast.success(t('profile-update-successful'));
+        closeModal();
+      }
+    },
+    onError: (error) => {
+      toast.error(t('error-something-wrong'));
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS_ME);
+    },
+  });
+};

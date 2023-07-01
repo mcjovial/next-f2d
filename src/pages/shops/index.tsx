@@ -1,4 +1,4 @@
-import { getLayout } from '@/components/layout/layout';
+import { getLayout } from '@/components/layouts/layout';
 import { NextPageWithLayout } from '@/types';
 import { useTranslation } from 'next-i18next';
 import { SHOPS_LIMIT } from '@/lib/constants';
