@@ -11,6 +11,7 @@ import { getLayout } from '@/components/layouts/layout';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import ContactForm from '@/components/contact/contact-form';
+import { siteSettings } from '@/config/site-settings';
 export { getStaticProps } from '@/utilities/general.ssr';
 
 const ContactPage = () => {
@@ -37,9 +38,7 @@ const ContactPage = () => {
                 {t('text-address')}
               </span>
               <span className='text-sm text-body'>
-                {!isEmpty(formatAddress(settings?.contactDetails?.location))
-                  ? formatAddress(settings?.contactDetails?.location)
-                  : t('common:text-no-address')}
+                {siteSettings.footer.address ?? t('common:text-no-address')}
               </span>
             </div>
 
@@ -48,28 +47,26 @@ const ContactPage = () => {
                 {t('text-phone')}
               </span>
               <span className='text-sm text-body'>
-                {settings?.contactDetails?.contact
-                  ? settings?.contactDetails?.contact
-                  : t('text-no-contact')}
+                {t(siteSettings.footer.phone) ?? t('text-no-contact')}
               </span>
             </div>
             {settings?.contactDetails?.website && (
               <div className='mb-8 flex flex-col'>
                 <span className='mb-3 font-semibold text-heading'>
-                  {t('text-website')}
+                  {t('text-email')}
                 </span>
                 <div className='flex items-center justify-between'>
                   <span className='text-sm text-body'>
-                    {settings?.contactDetails?.website}
+                    {t(siteSettings.footer.email)}
                   </span>
-                  <a
+                  {/* <a
                     href={settings?.contactDetails?.website ?? '#'}
                     target='_blank'
                     rel='noreferrer'
                     className='text-sm font-semibold text-accent hover:text-accent-hover focus:text-blue-500 focus:outline-none'
                   >
                     {t('text-visit-site')}
-                  </a>
+                  </a> */}
                 </div>
               </div>
             )}
