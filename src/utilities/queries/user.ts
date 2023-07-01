@@ -8,6 +8,11 @@ import { API_ENDPOINTS } from "../client/api-endpoints";
 import { signOut as socialLoginSignOut } from "next-auth/react";
 import { useTranslation } from "next-i18next";
 import { toast } from "react-toastify";
+import { useModalAction } from "@/components/ui/modal/modal.context";
+import { useState } from "react";
+import { RegisterUserInput } from "@/types";
+import { useStateMachine } from "little-state-machine";
+import { initialState, updateFormState } from "@/components/auth/forgot-password";
 
 export function useUser() {
   const { isAuthorize: isAuthorized } = useAuth();
@@ -70,3 +75,137 @@ export const useContact = () => {
     },
   });
 };
+
+export function useLogin() {
+  const { t } = useTranslation('common');
+  const { setAuthorized } = useAuth();
+  const { closeModal } = useModalAction();
+  const { setToken } = useToken();
+  let [serverError, setServerError] = useState<string | null>(null);
+
+  const { mutate, isLoading } = useMutation(client.users.login, {
+    onSuccess: (data) => {
+      if (!data.token) {
+        setServerError('error-credential-wrong');
+        return;
+      }
+      setToken(data.token);
+      setAuthorized(true);
+      closeModal();
+    },
+    onError: (error: Error) => {
+      console.log(error.message);
+    },
+  });
+
+  return { mutate, isLoading, serverError, setServerError };
+}
+
+export function useRegister() {
+  const { t } = useTranslation('common');
+  const { setToken } = useToken();
+  const { setAuthorized } = useAuth();
+  const { closeModal } = useModalAction();
+  let [formError, setFormError] = useState<Partial<RegisterUserInput> | null>(
+    null
+  );
+
+  const { mutate, isLoading } = useMutation(client.users.register, {
+    onSuccess: (data) => {
+      if (data?.token && data?.roles?.length) {
+        setToken(data?.token);
+        setAuthorized(true);
+        closeModal();
+        return;
+      }
+      if (!data.token) {
+        toast.error(t('error-credential-wrong'));
+      }
+    },
+    onError: (error) => {
+      const {
+        response: { data },
+      }: any = error ?? {};
+
+      setFormError(data);
+    },
+  });
+
+  return { mutate, isLoading, formError, setFormError };
+}
+
+export function useForgotPassword() {
+  const { actions } = useStateMachine({ updateFormState });
+  let [message, setMessage] = useState<string | null>(null);
+  let [formError, setFormError] = useState<any>(null);
+  const { t } = useTranslation();
+
+  const { mutate, isLoading } = useMutation(client.users.forgotPassword, {
+    onSuccess: (data, variables) => {
+      if (!data.success) {
+        setFormError({
+          email: data?.message ?? '',
+        });
+        return;
+      }
+      setMessage(data?.message!);
+      actions.updateFormState({
+        email: variables.email,
+        step: 'Token',
+      });
+    },
+  });
+
+  return { mutate, isLoading, message, formError, setFormError, setMessage };
+}
+
+export function useVerifyForgotPasswordToken() {
+  const { actions } = useStateMachine({ updateFormState });
+  const queryClient = useQueryClient();
+  let [formError, setFormError] = useState<any>(null);
+
+  const { mutate, isLoading } = useMutation(
+    client.users.verifyForgotPasswordToken,
+    {
+      onSuccess: (data, variables) => {
+        if (!data.success) {
+          setFormError({
+            token: data?.message ?? '',
+          });
+          return;
+        }
+        actions.updateFormState({
+          step: 'Password',
+          token: variables.token as string,
+        });
+      },
+      onSettled: () => {
+        queryClient.clear();
+      },
+    }
+  );
+
+  return { mutate, isLoading, formError, setFormError };
+}
+
+export function useResetPassword() {
+  const queryClient = useQueryClient();
+  const { openModal } = useModalAction();
+  const { actions } = useStateMachine({ updateFormState });
+
+  return useMutation(client.users.resetPassword, {
+    onSuccess: (data) => {
+      if (data?.success) {
+        toast.success('Successfully Reset Password!');
+        actions.updateFormState({
+          ...initialState,
+        });
+        openModal('LOGIN_VIEW');
+        return;
+      }
+    },
+    onSettled: () => {
+      queryClient.clear();
+    },
+  });
+}
