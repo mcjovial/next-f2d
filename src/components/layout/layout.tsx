@@ -1,6 +1,10 @@
+import dynamic from "next/dynamic";
 import Footer from "./footer";
 import Header from "./header";
-import MobileNavigation from "./mobile-navigation";
+const MobileNavigation = dynamic(
+  () => import('./mobile-navigation'),
+  {ssr: false}
+)
 
 export default function SiteLayout({ children }: React.PropsWithChildren) {
   return (

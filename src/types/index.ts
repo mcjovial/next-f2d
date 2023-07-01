@@ -6,6 +6,20 @@ export type NextPageWithLayout<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
+export interface HomePageProps {
+  variables?: {
+    products: any;
+    popularProducts?: any;
+    categories: any;
+  };
+}
+
+export interface Banner {
+  id: string;
+  title: string;
+  description: string;
+  image: string;
+}
 export interface GetParams {
   slug: string;
   language?: string;

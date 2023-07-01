@@ -31,7 +31,7 @@ const Header = () => {
     [show, isHomePage]
   );
 
-  console.log('isMultilangEnable', isMultilangEnable);
+  console.log('isFlattenHeader', isFlattenHeader);
   
   return (
     <>
