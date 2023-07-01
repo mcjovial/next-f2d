@@ -11,7 +11,7 @@
   "auth-menu-checkout": "Checkout",
   "auth-menu-my-orders": "My Orders",
   "auth-menu-logout": "Logout",
-  "join-button": "Join",
+  "join-button": "Register / Sign-in",
   "change-locale": "Switch to german",
   "text-search": "Search",
   "text-burger-menu": "Burger Menu",
@@ -419,5 +419,7 @@
   "text-message": "Message",
   "profile-sidebar-my-questions": "My Questions",
   "profile-sidebar-my-reports": "My Reports",
-  "payment-confirmed": "Payment Confirmed! Click On Place Order"
+  "payment-confirmed": "Payment Confirmed! Click On Place Order",
+
+  "text-get-app": "Get Our App"
 }

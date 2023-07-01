@@ -11,7 +11,7 @@ export const siteSettings = {
     height: 40,
   },
   defaultLanguage: 'en',
-  currencyCode: 'USD',
+  currencyCode: 'NGN',
   product: {
     placeholderImage: '/product-placeholder.svg',
     // cardMaps: {
@@ -90,33 +90,33 @@ export const siteSettings = {
   footer: {
     copyright: {
       name: 'Famr2Door Express',
-      href: 'https://redq.io/',
+      href: '/',
     },
-    address: '2429 River Drive, Suite 35 Cottonhall, CA 2296 United Kingdom',
+    address: '2429 Central Area, Suite 35 Cottonhall, FCT Abuja',
     email: 'dummy@dummy.com',
-    phone: '+1 256-698-0694',
+    phone: '+234 256-698-0694',
     menus: [
-      {
-        title: 'text-explore',
-        links: [
-          {
-            name: 'text-about-us',
-            href: '/',
-          },
-          {
-            name: 'text-sitemap',
-            href: '/',
-          },
-          {
-            name: 'text-bookmarks',
-            href: '/',
-          },
-          {
-            name: 'text-sign-join',
-            href: '/',
-          },
-        ],
-      },
+      // {
+      //   title: 'text-explore',
+      //   links: [
+      //     {
+      //       name: 'text-about-us',
+      //       href: '/',
+      //     },
+      //     {
+      //       name: 'text-sitemap',
+      //       href: '/',
+      //     },
+      //     {
+      //       name: 'text-bookmarks',
+      //       href: '/',
+      //     },
+      //     {
+      //       name: 'text-sign-join',
+      //       href: '/',
+      //     },
+      //   ],
+      // },
       {
         title: 'text-customer-service',
         links: [

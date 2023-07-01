@@ -55,10 +55,16 @@ const Footer = () => {
               description="text-subscribe-details"
             />
           </div>
+
+          <div className="flex flex-col">
+            <div className="mt-3 mb-4 font-semibold text-heading lg:mb-7">
+              <span>{t('text-get-app')}</span>
+            </div>
+          </div>
         </div>
 
         <div className="mt-8 flex w-full flex-col items-center border-t border-gray-200 pt-8 pb-12 lg:mt-0 lg:flex-row lg:justify-between lg:border-t-0">
-          <span className="order-2 text-sm text-heading lg:order-1">
+          <span className="order-2 text-xs lg:order-1 lg:flex lg:gap-x-2">
             &copy; {t('text-copyright')} {new Date().getFullYear()}{' '}
             <Link
               className="font-bold text-heading transition-colors hover:text-accent"

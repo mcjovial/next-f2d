@@ -9,7 +9,7 @@ export default function JoinButton() {
     return openModal('LOGIN_VIEW');
   }
   return (
-    <Button className="font-semibold" size="small" onClick={handleJoin}>
+    <Button className="font-semibold rounded-full" size="small" onClick={handleJoin}>
       {t('join-button')}
     </Button>
   );
