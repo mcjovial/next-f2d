@@ -45,6 +45,7 @@
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.45.0",
     "react-i18next": "^13.0.1",
+    "react-otp-input": "^3.0.2",
     "react-phone-input-2": "^2.15.1",
     "react-query": "^3.39.3",
     "react-scroll": "^1.8.9",

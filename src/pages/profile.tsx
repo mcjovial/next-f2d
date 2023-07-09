@@ -38,7 +38,7 @@ const ProfilePage = () => {
   );
 };
 
-// ProfilePage.authenticationRequired = true;
+ProfilePage.authenticationRequired = true;
 
 ProfilePage.getLayout = function getLayout(page: React.ReactElement) {
   return <DashboardLayout>{page}</DashboardLayout>;

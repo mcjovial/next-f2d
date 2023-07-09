@@ -13,6 +13,10 @@ const ProductDetailsModalView = dynamic(
   () => import('@/components/products/details/popup'),
   { ssr: false }
 );
+const ProfileAddOrUpdateContact = dynamic(
+  () => import('@/components/profile/profile-add-or-update-contact')
+);
+
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
   const { closeModal } = useModalAction();
@@ -24,6 +28,9 @@ const ManagedModal = () => {
       {view === 'FORGOT_VIEW' && <ForgotPassword />}
       {view === 'PRODUCT_DETAILS' && (
         <ProductDetailsModalView productSlug={data} />
+      )}
+      {view === 'ADD_OR_UPDATE_PROFILE_CONTACT' && (
+        <ProfileAddOrUpdateContact />
       )}
     </Modal>
   )

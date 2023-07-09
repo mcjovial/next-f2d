@@ -13,6 +13,7 @@ import { useState } from "react";
 import { RegisterUserInput } from "@/types";
 import { useStateMachine } from "little-state-machine";
 import { initialState, updateFormState } from "@/components/auth/forgot-password";
+import { initialOtpState, optAtom } from "@/components/otp/atom";
 
 export function useUser() {
   const { isAuthorize: isAuthorized } = useAuth();
@@ -253,3 +254,62 @@ export const useDeleteAddress = () => {
     },
   });
 };
+
+export function useSendOtpCode({
+  verifyOnly,
+}: Partial<{ verifyOnly: boolean }> = {}) {
+  let [serverError, setServerError] = useState<string | null>(null);
+  const [otpState, setOtpState] = useAtom(optAtom);
+
+  const { mutate, isLoading } = useMutation(client.users.sendOtpCode, {
+    onSuccess: (data) => {
+      if (!data.success) {
+        setServerError(data.message!);
+        return;
+      }
+      setOtpState({
+        ...otpState,
+        otpId: data?.id!,
+        isContactExist: data?.is_contact_exist!,
+        phoneNumber: data?.phone_number!,
+        step: data?.is_contact_exist! ? 'OtpForm' : 'RegisterForm',
+        ...(verifyOnly && { step: 'OtpForm' }),
+      });
+    },
+    onError: (error: Error) => {
+      console.log(error.message);
+    },
+  });
+
+  return { mutate, isLoading, serverError, setServerError };
+}
+
+export function useVerifyOtpCode({
+  onVerifySuccess,
+}: {
+  onVerifySuccess: Function;
+}) {
+  const [otpState, setOtpState] = useAtom(optAtom);
+  let [serverError, setServerError] = useState<string | null>(null);
+  const { mutate, isLoading } = useMutation(client.users.verifyOtpCode, {
+    onSuccess: (data) => {
+      if (!data.success) {
+        setServerError(data?.message!);
+        return;
+      }
+      if (onVerifySuccess) {
+        onVerifySuccess({
+          phone_number: otpState.phoneNumber,
+        });
+      }
+      setOtpState({
+        ...initialOtpState,
+      });
+    },
+    onError: (error: Error) => {
+      toast.error(error.message);
+    },
+  });
+
+  return { mutate, isLoading, serverError, setServerError };
+}
