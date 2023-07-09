@@ -39,7 +39,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         <div className="relative w-16 h-16 mx-auto overflow-hidden bg-gray-200 border border-gray-100 rounded-lg ltr:mr-4 rtl:ml-4 shrink-0">
           <Image
             alt={t('logo')}
-            src={shop?.logo?.original! ?? productPlaceholder}
+            src={shop?.logo ?? productPlaceholder}
             layout="fill"
             objectFit="cover"
           />
@@ -69,7 +69,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
               <div className="relative mx-auto mb-8 overflow-hidden bg-gray-200 border border-gray-100 rounded-lg w-44 h-44">
                 <Image
                   alt={t('logo')}
-                  src={shop?.logo?.original! ?? productPlaceholder}
+                  src={shop?.logo! ?? productPlaceholder}
                   layout="fill"
                   objectFit="cover"
                 />

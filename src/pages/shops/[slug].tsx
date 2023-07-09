@@ -27,6 +27,8 @@ const ShopPage: NextPageWithLayout<
 
   const isGerman = router.locale === 'de';
 
+  console.log('var', variables);
+  
   return (
     <>
       <div className='flex flex-col bg-gray-100 lg:flex-row lg:items-start lg:p-8'>
@@ -36,7 +38,7 @@ const ShopPage: NextPageWithLayout<
           <div className='relative h-full w-full overflow-hidden rounded'>
             <Image
               alt={t('heading')}
-              src={shop?.cover_image?.original ?? productPlaceholder}
+              src={shop?.cover_image ?? productPlaceholder}
               layout='responsive'
               width={2340}
               height={870}

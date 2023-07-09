@@ -27,6 +27,7 @@ const ShopsPage: NextPageWithLayout = () => {
       </div>
     );
   }
+  
   return (
     <>
       <div className='min-h-screen bg-light '>

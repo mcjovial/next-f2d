@@ -5,7 +5,6 @@ import type {
   ProductQueryOptions,
   QuestionPaginator,
   QuestionQueryOptions,
-  GetParams,
 } from '@/types';
 import {
   useInfiniteQuery,

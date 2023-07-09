@@ -18,22 +18,22 @@ const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
 
   return (
     <Link href={Routes.shop(shop.slug)}>
-      <div className="relative flex cursor-pointer items-center rounded border border-gray-200 p-5">
+      <div className="relative flex flex-col cursor-pointer items-center rounded border border-gray-200 overflow-hidden">
         {isNew && (
           <span className="absolute top-2 rounded bg-blue-500 px-2 py-1 text-xs text-light ltr:right-2 rtl:left-2">
             {t('common:text-new')}
           </span>
         )}
-        <div className="relative flex h-16 w-16 shrink-0 items-center justify-center overflow-hidden rounded-full bg-gray-300">
+        <div className="relative flex h-48 w-full shrink-0 items-center justify-center overflow-hidden rounded-fulll bg-gray-300">
           <Image
             alt={t('common:text-logo')}
-            src={shop?.logo?.thumbnail ?? productPlaceholder}
+            src={shop?.logo ?? productPlaceholder}
             layout="fill"
-            objectFit="cover"
+            // objectFit="cover"
           />
         </div>
 
-        <div className="flex flex-col ltr:ml-4 rtl:mr-4">
+        <div className="flex flex-col items-center w-full py-5">
           <span className="mb-2 text-lg font-semibold text-heading">
             {shop?.name}
           </span>

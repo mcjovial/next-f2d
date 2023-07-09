@@ -79,12 +79,11 @@ class Client {
   };
 
   shops = {
-    all: (params: Partial<ShopQueryOptions>) =>
+    all: ({ name, ...params }: Partial<ShopQueryOptions>) =>
       HttpClient.get<ShopPaginator>(API_ENDPOINTS.SHOPS, {
-        search: HttpClient.formatSearchParams({
-          is_active: '1',
-        }),
         ...params,
+        is_active: '1',
+        search: name,
       }),
     get: (slug: string) =>
       HttpClient.get<Shop>(`${API_ENDPOINTS.SHOPS}/${slug}`),

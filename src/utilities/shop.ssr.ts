@@ -29,7 +29,7 @@ export const getStaticPaths: GetStaticPaths<ParsedQueryParams> = async ({
 type PageProps = {
   shop: Shop;
   variables: {
-    shop_id: string;
+    shop: string;
     limit: number;
   };
 };
@@ -47,14 +47,14 @@ export const getStaticProps: GetStaticProps<
   try {
     const shop = await client.shops.get(slug);
     await queryClient.prefetchInfiniteQuery(
-      [API_ENDPOINTS.PRODUCTS, { limit: PRODUCTS_PER_PAGE, shop_id: shop.id, language: locale }],
+      [API_ENDPOINTS.PRODUCTS, { limit: PRODUCTS_PER_PAGE, shop: shop.id, language: locale }],
       ({ queryKey }) => client.products.all(queryKey[1] as ProductQueryOptions)
     );
     return {
       props: {
         shop,
         variables: {
-          shop_id: shop?.id,
+          shop: shop?.id,
           limit: PRODUCTS_PER_PAGE,
         },
         ...(await serverSideTranslations(locale!, ['common'])),

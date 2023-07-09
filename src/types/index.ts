@@ -76,7 +76,7 @@ export interface ShopQueryOptions extends QueryOptions {
 }
 
 export interface ProductQueryOptions extends QueryOptions {
-  shop_id: string;
+  shop: string;
   sortedBy: string;
   orderBy: string;
   name: string;
@@ -277,6 +277,7 @@ export interface Shop {
   slug: string;
   description: string;
   cover_image: string;
+  logo: string;
 }
 
 export interface Product {
