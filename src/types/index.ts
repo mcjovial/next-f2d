@@ -81,13 +81,7 @@ export interface ProductQueryOptions extends QueryOptions {
   orderBy: string;
   name: string;
   categories: string;
-  tags: string;
-  type: string;
-  manufacturer: string;
-  author: string;
   price: string;
-  min_price: string;
-  max_price: string;
   language: string;
   searchType: string;
   searchQuery: string;
@@ -106,6 +100,8 @@ export interface PopularProductQueryOptions extends QueryOptions {
   range: number;
 }
 
+export interface WishlistQueryOptions extends QueryOptions {}
+
 export interface Address {
   id: string;
   title: string;
@@ -118,7 +114,7 @@ export interface Address {
     zip: string;
     street_address: string;
   };
-  location: {
+  location?: {
     lat: number;
     lng: number;
   }
@@ -331,6 +327,14 @@ export interface Question {
   product: Product;
 }
 
+export interface Wishlist {
+  id: string;
+  product: Product;
+  product_id: string;
+  user: User[];
+  user_id: string;
+}
+
 export interface Feedback {
   id: string;
   user_id: string;
@@ -381,3 +385,4 @@ export interface TagPaginator extends PaginatorInfo<Tag> {}
 export interface ShopPaginator extends PaginatorInfo<Shop> {}
 export interface ProductPaginator extends PaginatorInfo<Product> {}
 export interface QuestionPaginator extends PaginatorInfo<Question> {}
+export interface WishlistPaginator extends PaginatorInfo<Wishlist> {}

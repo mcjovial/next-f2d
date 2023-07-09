@@ -229,3 +229,27 @@ export const useUpdateUser = () => {
     },
   });
 };
+
+export const useDeleteAddress = () => {
+  const { closeModal } = useModalAction();
+  const queryClient = useQueryClient();
+  return useMutation(client.users.deleteAddress, {
+    onSuccess: (data) => {
+      if (data) {
+        toast.success('successfully-address-deleted');
+        closeModal();
+        return;
+      }
+    },
+    onError: (error) => {
+      const {
+        response: { data },
+      }: any = error ?? {};
+
+      toast.error(data?.message);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries(API_ENDPOINTS.USERS_ME);
+    },
+  });
+};

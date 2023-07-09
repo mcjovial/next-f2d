@@ -45,34 +45,32 @@ export function formatVariantPrice({
 }
 
 export default function usePrice(
-  data?: {
+  data: {
     amount: number;
     baseAmount?: number;
     currencyCode?: string;
-  } | null
+  }
 ) {
   const {
     // @ts-ignore
     settings: { currency },
   } = useSettings();
-  const { amount, baseAmount, currencyCode } = {
-    ...data,
-    currencyCode: currency ?? 'USD',
-  };
-  const { locale } = useRouter();
-  const value = useMemo(() => {
-    if (typeof amount !== 'number' || !currencyCode) return '';
-    const currentLocale = locale ? locale : 'en';
-    return baseAmount
-      ? formatVariantPrice({
-          amount,
-          baseAmount,
-          currencyCode,
-          locale: currentLocale,
-        })
-      : formatPrice({ amount, currencyCode, locale: currentLocale });
-  }, [amount, baseAmount, currencyCode, locale]);
 
+  // const { amount, baseAmount, currencyCode = currency } = data ?? {};
+  const amount = data.amount;
+  const baseAmount = data?.baseAmount;
+  const currencyCode = data?.currencyCode || currency;
+  
+  const { locale } = useRouter();
+  const currentLocale = locale ? locale : 'en';
+
+  const value = baseAmount ? formatVariantPrice({
+    amount,
+    baseAmount,
+    currencyCode,
+    locale: currentLocale,
+  }) : formatPrice({ amount, currencyCode, locale: currentLocale });
+  
   return typeof value === 'string'
     ? { price: value, basePrice: null, discount: null }
     : value;

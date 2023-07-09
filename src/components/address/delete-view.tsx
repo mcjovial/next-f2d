@@ -3,7 +3,7 @@ import {
   useModalAction,
   useModalState,
 } from '@/components/ui/modal/modal.context';
-import { useDeleteAddress } from '@/framework/user';
+import { useDeleteAddress } from '@/utilities/queries/user';
 
 export default function AddressDeleteView() {
   const {

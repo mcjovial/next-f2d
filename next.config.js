@@ -6,6 +6,7 @@ const nextConfig = {
   reactStrictMode: true,
   images: {
     domains: [
+      'res.cloudinary.com',
       'pickbazarlaravel.s3.ap-southeast-1.amazonaws.com',
       'lh3.googleusercontent.com',
       'localhost',

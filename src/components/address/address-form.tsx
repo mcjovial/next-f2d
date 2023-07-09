@@ -7,8 +7,8 @@ import { useTranslation } from 'next-i18next';
 import * as yup from 'yup';
 import { useModalState } from '@/components/ui/modal/modal.context';
 import { Form } from '@/components/ui/forms/form';
-import { AddressType } from '@/framework/utils/constants';
-import { useUpdateUser } from '@/framework/user';
+import { AddressType } from '@/utilities/constants';
+import { useUpdateUser } from '@/utilities/queries/user';
 
 type FormValues = {
   title: string;

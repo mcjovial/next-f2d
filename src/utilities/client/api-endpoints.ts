@@ -13,7 +13,6 @@ export const API_ENDPOINTS = {
   USERS_LOGOUT: '/logout',
   USERS_SUBSCRIBE_TO_NEWSLETTER: '/subscribe-to-newsletter',
   USERS_CONTACT_US: '/contact-us',
-  USERS_WISHLIST: '/my-wishlists',
   SOCIAL_LOGIN: '/social-login-token',
   SEND_OTP_CODE: '/send-otp-code',
   VERIFY_OTP_CODE: '/verify-otp-code',
@@ -27,4 +26,7 @@ export const API_ENDPOINTS = {
   PRODUCTS_REVIEWS_ABUSE_REPORT: '/abusive_reports',
   PRODUCTS_QUESTIONS: '/questions',
   FEEDBACK: '/feedbacks',
+  USERS_WISHLIST: '/my-wishlists',
+  WISHLIST: '/wishlists',
+  USERS_WISHLIST_TOGGLE: '/wishlists/toggle',
 }

@@ -1,4 +1,4 @@
-import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CreateAbuseReportInput, CreateContactUsInput, CreateFeedbackInput, CreateQuestionInput, Feedback, ForgotPasswordUserInput, GetParams, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, Product, ProductPaginator, ProductQueryOptions, QuestionPaginator, QuestionQueryOptions, RegisterUserInput, ResetPasswordUserInput, Review, SendOtpCodeInputType, Settings, SettingsQueryOptions, Shop, ShopPaginator, ShopQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType } from "@/types";
+import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CreateAbuseReportInput, CreateContactUsInput, CreateFeedbackInput, CreateQuestionInput, Feedback, ForgotPasswordUserInput, GetParams, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, Product, ProductPaginator, ProductQueryOptions, QuestionPaginator, QuestionQueryOptions, RegisterUserInput, ResetPasswordUserInput, Review, SendOtpCodeInputType, Settings, SettingsQueryOptions, Shop, ShopPaginator, ShopQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType, Wishlist, WishlistPaginator, WishlistQueryOptions } from "@/types";
 import { HttpClient } from "./http-client";
 import { API_ENDPOINTS } from "./api-endpoints";
 
@@ -92,40 +92,19 @@ class Client {
 
   products = {
     all: ({
-      type,
-      categories,
       name,
-      shop_id,
-      author,
-      manufacturer,
-      min_price,
-      max_price,
-      tags,
       ...params
     }: Partial<ProductQueryOptions>) =>
       HttpClient.get<ProductPaginator>(API_ENDPOINTS.PRODUCTS, {
-        searchJoin: 'and',
-        with: 'type;author',
         ...params,
-        search: HttpClient.formatSearchParams({
-          type,
-          categories,
-          name,
-          shop_id,
-          author,
-          manufacturer,
-          min_price,
-          max_price,
-          tags,
-          status: 'publish',
-        }),
+        status: 'publish',
+        search: name,
       }),
     popular: (params: Partial<ProductQueryOptions>) =>
       HttpClient.get<Product[]>(API_ENDPOINTS.PRODUCTS_POPULAR, params),
 
     questions: ({ question, ...params }: QuestionQueryOptions) =>
       HttpClient.get<QuestionPaginator>(API_ENDPOINTS.PRODUCTS_QUESTIONS, {
-        searchJoin: 'and',
         ...params,
         search: HttpClient.formatSearchParams({
           question,
@@ -148,6 +127,27 @@ class Client {
       ),
     createQuestion: (input: CreateQuestionInput) =>
       HttpClient.post<Review>(API_ENDPOINTS.PRODUCTS_QUESTIONS, input),
+  };
+
+  wishlist = {
+    all: (params: WishlistQueryOptions) =>
+      HttpClient.get<WishlistPaginator>(API_ENDPOINTS.USERS_WISHLIST, {
+        with: 'shop',
+        orderBy: 'created_at',
+        sortedBy: 'desc',
+        ...params,
+      }),
+    toggle: (input: { product_id: string; language?: string }) =>
+      HttpClient.post<{ in_wishlist: boolean }>(
+        API_ENDPOINTS.USERS_WISHLIST_TOGGLE,
+        input
+      ),
+    remove: (id: string) =>
+      HttpClient.delete<Wishlist>(`${API_ENDPOINTS.WISHLIST}/${id}`),
+    checkIsInWishlist: ({ product_id }: { product_id: string }) =>
+      HttpClient.get<boolean>(
+        `${API_ENDPOINTS.WISHLIST}/in_wishlist/${product_id}`
+      ),
   };
 }
 
