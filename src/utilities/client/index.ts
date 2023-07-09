@@ -9,7 +9,7 @@ class Client {
     upload: (input: File[]) => {
       let formData = new FormData();
       input.forEach((attachment) => {
-        formData.append('attachment[]', attachment);
+        formData.append('attachment', attachment);
       });
       return HttpClient.post<string[]>(API_ENDPOINTS.UPLOADS, formData, {
         headers: {

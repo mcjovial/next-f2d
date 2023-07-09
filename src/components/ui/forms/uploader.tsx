@@ -28,6 +28,7 @@ export default function Uploader({
     },
     [upload]
   );
+  
   const { getRootProps, getInputProps } = useDropzone({
     accept: 'image/*',
     multiple,
@@ -51,7 +52,7 @@ export default function Uploader({
     >
       <div className="flex h-16 w-16 min-w-0 items-center justify-center overflow-hidden">
         {/* eslint-disable */}
-        <img src={file.preview} alt={file?.name} />
+        <img src={file} alt={file} />
       </div>
     </div>
   ));

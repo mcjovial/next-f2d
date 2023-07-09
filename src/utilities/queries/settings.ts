@@ -52,12 +52,10 @@ export const useUploads = ({ onChange, defaultFiles }: any) => {
 
   const { mutate: upload, isLoading } = useMutation(client.settings.upload, {
     onSuccess: (data) => {
+
       if (onChange) {
-        const dataAfterRemoveTypename = data?.map(
-          ({ __typename, ...rest }: any) => rest
-        );
-        onChange(dataAfterRemoveTypename);
-        setFiles(getPreviewImage(dataAfterRemoveTypename));
+        onChange(data);
+        setFiles(getPreviewImage(data));
       }
     },
   });
