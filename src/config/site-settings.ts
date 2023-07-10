@@ -4,7 +4,7 @@ export const siteSettings = {
   name: 'Farm2Door',
   description: '',
   logo: {
-    url: '/logo.svg',
+    url: '/logo.png',
     alt: 'Farm2Door',
     href: '/grocery',
     width: 128,
@@ -13,7 +13,7 @@ export const siteSettings = {
   defaultLanguage: 'en',
   currencyCode: 'NGN',
   product: {
-    placeholderImage: '/product-placeholder.svg',
+    placeholderImage: '/product.svg',
     // cardMaps: {
     //   grocery: 'Krypton',
     //   furniture: 'Radon',

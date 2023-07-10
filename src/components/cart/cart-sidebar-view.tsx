@@ -12,6 +12,7 @@ import { formatString } from '@/lib/format-string';
 import { useTranslation } from 'next-i18next';
 import { useAtom } from 'jotai';
 import { drawerAtom } from '@/store/drawer-atom';
+import { memo } from 'react';
 
 const CartSidebarView = () => {
   const { t } = useTranslation('common');
@@ -96,4 +97,4 @@ const CartSidebarView = () => {
   );
 };
 
-export default CartSidebarView;
+export default memo(CartSidebarView);

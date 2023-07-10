@@ -1,5 +1,6 @@
 export interface Item {
   id: string | number;
+  image: string;
   price: number;
   quantity?: number;
   stock?: number;

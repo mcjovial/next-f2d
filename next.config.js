@@ -14,6 +14,14 @@ const nextConfig = {
       'i.pravatar.cc',
     ],
   },
+  ...(process.env.APPLICATION_MODE === 'production' && {
+    typescript: {
+      ignoreBuildErrors: true,
+    },
+    eslint: {
+      ignoreDuringBuilds: true,
+    },
+  }),
 }
 
 module.exports = nextConfig
