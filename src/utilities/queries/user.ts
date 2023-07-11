@@ -10,7 +10,7 @@ import { useTranslation } from "next-i18next";
 import { toast } from "react-toastify";
 import { useModalAction } from "@/components/ui/modal/modal.context";
 import { useState } from "react";
-import { RegisterUserInput } from "@/types";
+import { ChangePasswordUserInput, RegisterUserInput } from "@/types";
 import { useStateMachine } from "little-state-machine";
 import { initialState, updateFormState } from "@/components/auth/forgot-password";
 import { initialOtpState, optAtom } from "@/components/otp/atom";
@@ -312,4 +312,30 @@ export function useVerifyOtpCode({
   });
 
   return { mutate, isLoading, serverError, setServerError };
+}
+
+export function useChangePassword() {
+  const { t } = useTranslation('common');
+  let [formError, setFormError] =
+    useState<Partial<ChangePasswordUserInput> | null>(null);
+
+  const { mutate, isLoading } = useMutation(client.users.changePassword, {
+    onSuccess: (data) => {
+      if (!data.success) {
+        setFormError({
+          oldPassword: data?.message ?? '',
+        });
+        return;
+      }
+      toast.success(t('password-successful'));
+    },
+    onError: (error) => {
+      const {
+        response: { data },
+      }: any = error ?? {};
+      setFormError(data);
+    },
+  });
+
+  return { mutate, isLoading, formError, setFormError };
 }
