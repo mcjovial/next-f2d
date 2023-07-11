@@ -1,4 +1,4 @@
-import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CreateAbuseReportInput, CreateContactUsInput, CreateFeedbackInput, CreateQuestionInput, Feedback, ForgotPasswordUserInput, GetParams, LoginUserInput, OTPResponse, OTPVerifyResponse, OtpLoginInputType, PasswordChangeResponse, Product, ProductPaginator, ProductQueryOptions, QuestionPaginator, QuestionQueryOptions, RegisterUserInput, ResetPasswordUserInput, Review, SendOtpCodeInputType, Settings, SettingsQueryOptions, Shop, ShopPaginator, ShopQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifyForgotPasswordUserInput, VerifyOtpInputType, Wishlist, WishlistPaginator, WishlistQueryOptions } from "@/types";
+import { AuthResponse, CategoryPaginator, CategoryQueryOptions, ChangePasswordUserInput, CheckoutVerificationInput, CouponPaginator, CouponQueryOptions, CreateAbuseReportInput, CreateContactUsInput, CreateFeedbackInput, CreateOrderInput, CreateQuestionInput, CreateRefundInput, Feedback, ForgotPasswordUserInput, GetParams, LoginUserInput, OTPResponse, OTPVerifyResponse, Order, OrderPaginator, OrderQueryOptions, OrderStatusPaginator, OtpLoginInputType, PasswordChangeResponse, Product, ProductPaginator, ProductQueryOptions, QueryOptions, QuestionPaginator, QuestionQueryOptions, Refund, RefundPaginator, RegisterUserInput, ResetPasswordUserInput, Review, SendOtpCodeInputType, Settings, SettingsQueryOptions, Shop, ShopPaginator, ShopQueryOptions, SocialLoginInputType, TagPaginator, TagQueryOptions, UpdateUserInput, User, VerifiedCheckoutData, VerifyCouponInputType, VerifyCouponResponse, VerifyForgotPasswordUserInput, VerifyOtpInputType, Wishlist, WishlistPaginator, WishlistQueryOptions } from "@/types";
 import { HttpClient } from "./http-client";
 import { API_ENDPOINTS } from "./api-endpoints";
 
@@ -89,6 +89,30 @@ class Client {
       HttpClient.get<Shop>(`${API_ENDPOINTS.SHOPS}/${slug}`),
   };
 
+  orders = {
+    all: (params: Partial<OrderQueryOptions>) =>
+      HttpClient.get<OrderPaginator>(API_ENDPOINTS.ORDERS, {
+        with: 'refund',
+        ...params,
+      }),
+    get: (tracking_number: string) =>
+      HttpClient.get<Order>(`${API_ENDPOINTS.ORDERS}/${tracking_number}`),
+    create: (input: CreateOrderInput) =>
+      HttpClient.post<Order>(API_ENDPOINTS.ORDERS, input),
+    statuses: (params: Pick<QueryOptions, 'limit'>) =>
+      HttpClient.get<OrderStatusPaginator>(API_ENDPOINTS.ORDERS_STATUS, params),
+    refunds: (params: Pick<QueryOptions, 'limit'>) =>
+      HttpClient.get<RefundPaginator>(API_ENDPOINTS.ORDERS_REFUNDS, params),
+    createRefund: (input: CreateRefundInput) =>
+      HttpClient.post<Refund>(API_ENDPOINTS.ORDERS_REFUNDS, input),
+
+    verify: (input: CheckoutVerificationInput) =>
+      HttpClient.post<VerifiedCheckoutData>(
+        API_ENDPOINTS.ORDERS_CHECKOUT_VERIFY,
+        input
+      ),
+  };
+
   products = {
     all: ({
       name,
@@ -146,6 +170,16 @@ class Client {
     checkIsInWishlist: ({ product_id }: { product_id: string }) =>
       HttpClient.get<boolean>(
         `${API_ENDPOINTS.WISHLIST}/in_wishlist/${product_id}`
+      ),
+  };
+
+  coupons = {
+    all: (params: Partial<CouponQueryOptions>) =>
+      HttpClient.get<CouponPaginator>(API_ENDPOINTS.COUPONS, params),
+    verify: (input: VerifyCouponInputType) =>
+      HttpClient.post<VerifyCouponResponse>(
+        API_ENDPOINTS.COUPONS_VERIFY,
+        input
       ),
   };
 }

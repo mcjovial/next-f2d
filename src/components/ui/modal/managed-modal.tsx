@@ -16,6 +16,13 @@ const ProductDetailsModalView = dynamic(
 const ProfileAddOrUpdateContact = dynamic(
   () => import('@/components/profile/profile-add-or-update-contact')
 );
+const AddOrUpdateCheckoutContact = dynamic(
+  () => import('@/components/checkout/contact/add-or-update')
+);
+const CreateOrUpdateAddressForm = dynamic(
+  () => import('@/components/address/address-form'),
+  { ssr: false }
+);
 
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
@@ -32,6 +39,10 @@ const ManagedModal = () => {
       {view === 'ADD_OR_UPDATE_PROFILE_CONTACT' && (
         <ProfileAddOrUpdateContact />
       )}
+      {view === 'ADD_OR_UPDATE_CHECKOUT_CONTACT' && (
+        <AddOrUpdateCheckoutContact />
+      )}
+      {view === 'ADD_OR_UPDATE_ADDRESS' && <CreateOrUpdateAddressForm />}
     </Modal>
   )
 }

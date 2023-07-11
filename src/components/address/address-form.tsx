@@ -25,7 +25,7 @@ type FormValues = {
 const addressSchema = yup.object().shape({
   type: yup
     .string()
-    .oneOf([AddressType.Billing, AddressType.Shipping])
+    .oneOf([AddressType.USER, AddressType.ORDER])
     .required('error-type-required'),
   title: yup.string().required('error-title-required'),
   address: yup.object().shape({
@@ -44,6 +44,8 @@ export const AddressForm: React.FC<any> = ({
 }) => {
   const { t } = useTranslation('common');
 
+  console.log('def', defaultValues);
+  
   return (
     <Form<FormValues>
       onSubmit={onSubmit}
@@ -65,14 +67,14 @@ export const AddressForm: React.FC<any> = ({
                 id="billing"
                 {...register('type')}
                 type="radio"
-                value={AddressType.Billing}
-                label={t('text-billing')}
+                value={AddressType.USER}
+                label={t('text-user')}
               />
               <Radio
                 id="shipping"
                 {...register('type')}
                 type="radio"
-                value={AddressType.Shipping}
+                value={AddressType.ORDER}
                 label={t('text-shipping')}
               />
             </div>
@@ -144,6 +146,8 @@ export default function CreateOrUpdateAddressForm() {
   const { mutate: updateProfile } = useUpdateUser();
 
   function onSubmit(values: FormValues) {
+    console.log('vaaaal', values);
+    
     const formattedInput = {
       id: address?.id,
       // customer_id: customerId,

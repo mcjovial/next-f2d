@@ -29,4 +29,10 @@ export const API_ENDPOINTS = {
   USERS_WISHLIST: '/my-wishlists',
   WISHLIST: '/wishlists',
   USERS_WISHLIST_TOGGLE: '/wishlists/toggle',
+  ORDERS: '/orders',
+  ORDERS_STATUS: '/order-status',
+  ORDERS_REFUNDS: '/refunds',
+  ORDERS_CHECKOUT_VERIFY: '/orders/checkout/verify',
+  COUPONS: '/coupons',
+  COUPONS_VERIFY: '/coupons/verify',
 }

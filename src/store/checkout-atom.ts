@@ -1,4 +1,5 @@
 import { CHECKOUT } from "@/lib/constants";
+import { Address } from "@/types";
 import { atom } from "jotai";
 import { atomWithStorage } from 'jotai/utils';
 
@@ -45,5 +46,19 @@ export const verifiedResponseAtom = atom(
   (get, set, data: VerifiedResponse | null) => {
     const prev = get(checkoutAtom);
     return set(checkoutAtom, { ...prev, verified_response: data });
+  }
+);
+export const shippingAddressAtom = atom(
+  (get) => get(checkoutAtom).shipping_address,
+  (get, set, data: Address) => {
+    const prev = get(checkoutAtom);
+    return set(checkoutAtom, { ...prev, shipping_address: data });
+  }
+);
+export const customerContactAtom = atom(
+  (get) => get(checkoutAtom).customer_contact,
+  (get, set, data: string) => {
+    const prev = get(checkoutAtom);
+    return set(checkoutAtom, { ...prev, customer_contact: data });
   }
 );

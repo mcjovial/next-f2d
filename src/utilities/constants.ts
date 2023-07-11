@@ -1,4 +1,5 @@
 export enum AddressType {
-  Billing = 'billing',
-  Shipping = 'shipping',
+  SHOP = 'shop',
+  USER = 'user',
+  ORDER = 'order',
 }

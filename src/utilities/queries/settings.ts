@@ -6,6 +6,10 @@ import client from "../client";
 import { useState } from "react";
 import { FileWithPath } from "react-dropzone";
 import { getPreviewImage } from "@/lib/get-preview-image";
+import { useTranslation } from "next-i18next";
+import { couponAtom } from "@/store/checkout";
+import { useAtom } from "jotai";
+import { toast } from "react-toastify";
 
 export function useSettings() {
   const { locale } = useRouter();
@@ -66,3 +70,29 @@ export const useUploads = ({ onChange, defaultFiles }: any) => {
 
   return { mutate: handleSubmit, isLoading, files };
 };
+
+export function useVerifyCoupon() {
+  const { t } = useTranslation();
+  const [_, applyCoupon] = useAtom(couponAtom);
+  let [formError, setFormError] = useState<any>(null);
+
+  const { mutate, isLoading } = useMutation(client.coupons.verify, {
+    onSuccess: (data:any) => {
+      if (!data.is_valid) {
+        setFormError({
+          code: t('error-invalid-coupon'),
+        });
+      }
+      applyCoupon(data?.coupon);
+    },
+    onError: (error) => {
+      const {
+        response: { data },
+      }: any = error ?? {};
+
+      toast.error(data?.message);
+    },
+  });
+
+  return { mutate, isLoading, formError, setFormError };
+}

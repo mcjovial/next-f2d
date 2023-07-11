@@ -1,3 +1,4 @@
+import { AddressType } from "@/utilities/constants";
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 
@@ -102,10 +103,20 @@ export interface PopularProductQueryOptions extends QueryOptions {
 
 export interface WishlistQueryOptions extends QueryOptions {}
 
+export interface OrderQueryOptions extends QueryOptions {
+  name: string;
+  orderBy: string;
+}
+
+export interface CouponQueryOptions extends QueryOptions {
+  name: string;
+  orderBy: string;
+}
+
 export interface Address {
   id: string;
   title: string;
-  type: any;
+  type: AddressType;
   address: {
     __typename?: string;
     country: string;
@@ -311,6 +322,136 @@ export interface Product {
   language: string;
 }
 
+export interface OrderStatus {
+  id: string;
+  name: string;
+  color: string;
+  serial: number;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Coupon {
+  id: string;
+  name: string;
+  slug: string;
+  amount?: string;
+  code?: string;
+}
+
+enum RefundStatus {
+  APPROVED = 'Approved',
+  PENDING = 'Pending',
+  REJECTED = 'Rejected',
+  PROCESSING = 'Processing',
+}
+
+export interface Refund {
+  id: string;
+  title: string;
+  description: string;
+  images: string[];
+  amount: number;
+  status: RefundStatus;
+  shop: Shop;
+  order: Order;
+  customer: User;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface Order {
+  id: number | string;
+  tracking_number: string;
+  customer_id: number | string;
+  // customer?: Maybe<User>;
+  status: OrderStatus;
+  amount: number;
+  children: Order[];
+  sales_tax: number;
+  total: number;
+  paid_total: number;
+  payment_id?: string;
+  payment_gateway?: string;
+  coupon?: Coupon;
+  discount?: number;
+  delivery_fee?: number;
+  delivery_time?: string;
+  products: Product[];
+  created_at: Date;
+  updated_at: Date;
+  billing_address?: Address;
+  shipping_address?: Address;
+  refund: Refund;
+  language?: string;
+}
+
+export interface ConnectProductOrderPivot {
+  product_id: number;
+  order_quantity: number;
+  unit_price: number;
+  subtotal: number;
+}
+
+enum PaymentGatewayType {
+  PAYSTACK = 'Paystack',
+  CASH_ON_DELIVERY = 'Cash on delivery',
+  CASH = 'Cash',
+  FULL_WALLET_PAYMENT = 'Full wallet payment',
+}
+
+export interface CreateOrderInput {
+  customer_contact: string;
+  status: string;
+  products: ConnectProductOrderPivot[];
+  amount: number;
+  sales_tax: number;
+  total: number;
+  paid_total: number;
+  payment_id?: string;
+  payment_gateway: PaymentGatewayType;
+  coupon_id?: string;
+  shop_id?: string;
+  customer_id?: string;
+  discount?: number;
+  use_wallet_points?: boolean;
+  delivery_fee?: number;
+  delivery_time: string;
+  billing_address?: Address;
+  shipping_address: Address;
+  language?: string;
+}
+
+export interface CreateRefundInput {
+  order_id: string;
+  title: string;
+  description: string;
+  images: string[];
+}
+
+export interface CheckoutVerificationInput {
+  amount: number;
+  products: ConnectProductOrderPivot[];
+  shipping_address?: Address;
+}
+
+export interface VerifiedCheckoutData {
+  total_tax: number;
+  shipping_charge: number;
+  unavailable_products?: number[];
+  wallet_currency?: number;
+  wallet_amount?: number;
+}
+
+export interface VerifyCouponInputType {
+  code: string;
+}
+
+export interface VerifyCouponResponse {
+  is_valid: boolean;
+  coupon?: Coupon;
+}
+
 export interface RatingCount {
   rating: number;
   total: number;
@@ -387,3 +528,7 @@ export interface ShopPaginator extends PaginatorInfo<Shop> {}
 export interface ProductPaginator extends PaginatorInfo<Product> {}
 export interface QuestionPaginator extends PaginatorInfo<Question> {}
 export interface WishlistPaginator extends PaginatorInfo<Wishlist> {}
+export interface OrderPaginator extends PaginatorInfo<Order> {}
+export interface OrderStatusPaginator extends PaginatorInfo<OrderStatus> {}
+export interface RefundPaginator extends PaginatorInfo<Refund> {}
+export interface CouponPaginator extends PaginatorInfo<Coupon> {}
