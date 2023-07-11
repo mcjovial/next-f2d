@@ -1,7 +1,8 @@
 import { useTranslation } from 'next-i18next';
 import { useModalState } from '@/components/ui/modal/modal.context';
-import OtpForm from '@/components/otp/otp-form';
+// import OtpForm from '@/components/otp/otp-form';
 import { useUpdateUser } from '@/utilities/queries/user';
+import PhoneNumberForm from '../otp/phone-number-form';
 
 const ProfileAddOrUpdateContact = () => {
   const { t } = useTranslation('common');
@@ -10,7 +11,7 @@ const ProfileAddOrUpdateContact = () => {
   } = useModalState();
   const { mutate: updateProfile } = useUpdateUser();
 
-  function onContactUpdate({ phone_number }: { phone_number: string }) {
+  function onContactUpdate({ phone_number }: { phone_number: string }) {    
     if (!customerId) {
       return false;
     }
@@ -29,7 +30,8 @@ const ProfileAddOrUpdateContact = () => {
         {contact ? t('text-update') : t('text-add-new')}{' '}
         {t('text-contact-number')}
       </h1>
-      <OtpForm phoneNumber={contact} onVerifySuccess={onContactUpdate} />
+      {/* <OtpForm phoneNumber={contact} onVerifySuccess={onContactUpdate} /> */}
+      <PhoneNumberForm onSubmit={onContactUpdate} phoneNumber={contact} />
     </div>
   );
 };

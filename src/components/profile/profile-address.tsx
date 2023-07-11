@@ -24,9 +24,16 @@ export const ProfileAddressGrid: React.FC<AddressesProps> = ({
   function onAdd() {
     openModal('ADD_OR_UPDATE_ADDRESS', {
       customerId: userId,
-      type: AddressType.Billing,
+      type: AddressType.USER,
     });
   }
+  function onEdit(address: any) {
+    openModal('ADD_OR_UPDATE_ADDRESS', { customerId: userId, address });
+  }
+  function onDelete(address: any) {
+    openModal('DELETE_ADDRESS', { customerId: userId, addressId: address?.id });
+  }
+
   return (
     <div className={className}>
       <AddressHeader onAdd={onAdd} count={false} label={label} />
@@ -35,6 +42,8 @@ export const ProfileAddressGrid: React.FC<AddressesProps> = ({
           <AddressCard
             checked={false}
             address={address}
+            onDelete={() => onDelete(address)}
+            onEdit={() => onEdit(address)}
             userId={userId}
             key={address.id}
           />

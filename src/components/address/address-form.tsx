@@ -13,28 +13,26 @@ import { useUpdateUser } from '@/utilities/queries/user';
 type FormValues = {
   title: string;
   type: AddressType;
-  address: {
-    country: string;
-    city: string;
-    state: string;
-    zip: string;
-    street_address: string;
-  };
+  country: string;
+  city: string;
+  state: string;
+  zip: string;
+  street_address: string;
 };
 
 const addressSchema = yup.object().shape({
-  type: yup
-    .string()
-    .oneOf([AddressType.USER, AddressType.ORDER])
-    .required('error-type-required'),
+  // type: yup
+  //   .string()
+  //   .oneOf([AddressType.USER, AddressType.ORDER])
+  //   .required('error-type-required'),
   title: yup.string().required('error-title-required'),
-  address: yup.object().shape({
+  // address: yup.object().shape({
     country: yup.string().required('error-country-required'),
     city: yup.string().required('error-city-required'),
     state: yup.string().required('error-state-required'),
     zip: yup.string().required('error-zip-required'),
     street_address: yup.string().required('error-street-required'),
-  }),
+  // }),
 });
 
 export const AddressForm: React.FC<any> = ({
@@ -43,8 +41,6 @@ export const AddressForm: React.FC<any> = ({
   isLoading,
 }) => {
   const { t } = useTranslation('common');
-
-  console.log('def', defaultValues);
   
   return (
     <Form<FormValues>
@@ -60,26 +56,6 @@ export const AddressForm: React.FC<any> = ({
     >
       {({ register, formState: { errors } }) => (
         <>
-          <div>
-            <Label>{t('text-type')}</Label>
-            <div className="flex items-center space-x-4 rtl:space-x-reverse">
-              <Radio
-                id="billing"
-                {...register('type')}
-                type="radio"
-                value={AddressType.USER}
-                label={t('text-user')}
-              />
-              <Radio
-                id="shipping"
-                {...register('type')}
-                type="radio"
-                value={AddressType.ORDER}
-                label={t('text-shipping')}
-              />
-            </div>
-          </div>
-
           <Input
             label={t('text-title')}
             {...register('title')}
@@ -90,36 +66,36 @@ export const AddressForm: React.FC<any> = ({
 
           <Input
             label={t('text-country')}
-            {...register('address.country')}
-            error={t(errors.address?.country?.message!)}
+            {...register('country')}
+            error={t(errors.country?.message!)}
             variant="outline"
           />
 
           <Input
             label={t('text-city')}
-            {...register('address.city')}
-            error={t(errors.address?.city?.message!)}
+            {...register('city')}
+            error={t(errors.city?.message!)}
             variant="outline"
           />
 
           <Input
             label={t('text-state')}
-            {...register('address.state')}
-            error={t(errors.address?.state?.message!)}
+            {...register('state')}
+            error={t(errors.state?.message!)}
             variant="outline"
           />
 
           <Input
             label={t('text-zip')}
-            {...register('address.zip')}
-            error={t(errors.address?.zip?.message!)}
+            {...register('zip')}
+            error={t(errors.zip?.message!)}
             variant="outline"
           />
 
           <TextArea
             label={t('text-street-address')}
-            {...register('address.street_address')}
-            error={t(errors.address?.street_address?.message!)}
+            {...register('street_address')}
+            error={t(errors.street_address?.message!)}
             variant="outline"
             className="col-span-2"
           />
@@ -129,7 +105,7 @@ export const AddressForm: React.FC<any> = ({
             loading={isLoading}
             disabled={isLoading}
           >
-            {Boolean(defaultValues) ? t('text-update') : t('text-save')}{' '}
+            {Boolean(defaultValues.title) ? t('text-update') : t('text-save')}{' '}
             {t('text-address')}
           </Button>
         </>
@@ -144,18 +120,14 @@ export default function CreateOrUpdateAddressForm() {
     data: { customerId, address, type },
   } = useModalState();
   const { mutate: updateProfile } = useUpdateUser();
-
-  function onSubmit(values: FormValues) {
-    console.log('vaaaal', values);
-    
+  
+  function onSubmit(values: FormValues) {    
     const formattedInput = {
       id: address?.id,
       // customer_id: customerId,
+      ...values,
       title: values.title,
-      type: values.type,
-      address: {
-        ...values.address,
-      },
+      type: AddressType.USER,
     };
     updateProfile({
       id: customerId,
@@ -172,9 +144,7 @@ export default function CreateOrUpdateAddressForm() {
         defaultValues={{
           title: address?.title ?? '',
           type: address?.type ?? type,
-          address: {
-            ...address?.address,
-          },
+          ...address,
         }}
       />
     </div>

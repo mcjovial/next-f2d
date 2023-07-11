@@ -33,7 +33,7 @@ const AddressCard: React.FC<AddressProps> = ({
         {address?.title}
       </p>
       <p className="text-sm text-sub-heading">
-        {formatAddress(address?.address)}
+        {formatAddress(address)}
       </p>
       <div className="absolute top-4 flex space-x-2 opacity-0 group-hover:opacity-100 ltr:right-4 rtl:left-4 rtl:space-x-reverse">
         {onEdit && (

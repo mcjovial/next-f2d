@@ -29,7 +29,7 @@ const ProfilePage = () => {
           <ProfileAddressGrid
             userId={me.id}
             //@ts-ignore
-            addresses={me.address}
+            addresses={me.addresses}
             label={t('text-addresses')}
           />
         </Card>

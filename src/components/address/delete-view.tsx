@@ -17,7 +17,9 @@ export default function AddressDeleteView() {
       return;
     }
     deleteAddressById({ id: addressId });
+    closeModal();
   }
+  
   return (
     <ConfirmationCard
       onCancel={closeModal}

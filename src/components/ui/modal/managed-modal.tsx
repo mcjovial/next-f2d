@@ -23,6 +23,9 @@ const CreateOrUpdateAddressForm = dynamic(
   () => import('@/components/address/address-form'),
   { ssr: false }
 );
+const AddressDeleteView = dynamic(
+  () => import('@/components/address/delete-view')
+);
 
 const ManagedModal = () => {
   const { isOpen, view, data } = useModalState();
@@ -43,6 +46,7 @@ const ManagedModal = () => {
         <AddOrUpdateCheckoutContact />
       )}
       {view === 'ADD_OR_UPDATE_ADDRESS' && <CreateOrUpdateAddressForm />}
+      {view === 'DELETE_ADDRESS' && <AddressDeleteView />}
     </Modal>
   )
 }

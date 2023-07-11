@@ -25,7 +25,8 @@ const RightSideView = dynamic(
 export default function CheckoutPage() {
   const { t } = useTranslation();
   const { me } = useUser();
-  const { id, address, profile } = me ?? {};
+  const { id, addresses, profile } = me ?? {};
+
   return (
     <>
       <Seo noindex={true} nofollow={true} />
@@ -45,7 +46,7 @@ export default function CheckoutPage() {
               label={t('text-shipping-address')}
               count={2}
               //@ts-ignore
-              addresses={address}
+              addresses={addresses}
               atom={shippingAddressAtom}
               type={AddressType.ORDER}
             />
