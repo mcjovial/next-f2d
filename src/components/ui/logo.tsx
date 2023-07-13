@@ -14,7 +14,7 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
 
   return (
     <Link href='/' className={cn('inline-flex', className)} {...props}>
-      <span className='relative h-10 w-32 overflow-hidden md:w-40'>
+      <div className='relative h-10 w-32 overflow-hidden md:w-40'>
         <Image
           src={logo ?? logoPlaceholder}
           alt={siteTitle ?? 'Farm2door Express'}
@@ -22,7 +22,7 @@ const Logo: React.FC<React.AnchorHTMLAttributes<{}>> = ({
           objectFit='contain'
           loading='eager'
         />
-      </span>
+      </div>
     </Link>
   );
 };

@@ -3,8 +3,9 @@ import { useRouter } from 'next/router';
 import { BackArrowRound } from '@/components/icons/back-arrow-round';
 import LoginView from '@/components/auth/login-form';
 import { useUser } from '@/utilities/queries/user';
+import { PropsWithChildren } from 'react';
 
-const PrivateRoute: React.FC = ({ children }) => {
+const PrivateRoute: React.FC<PropsWithChildren> = ({ children }) => {
   const router = useRouter();
   const { me, isAuthorized } = useUser();
 

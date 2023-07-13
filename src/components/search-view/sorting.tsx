@@ -104,7 +104,7 @@ const Sorting: React.FC<Props> = ({ variant = 'radio' }) => {
                               ? 'border-[5px] border-gray-800'
                               : 'border border-gray-600'
                           }`}
-                        />
+                        ></span>
                         <RadioGroup.Label as="p" className="text-sm text-body">
                           {plan.label}
                         </RadioGroup.Label>

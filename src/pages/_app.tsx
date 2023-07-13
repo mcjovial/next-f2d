@@ -1,5 +1,6 @@
 import '@/styles/main.css';
 import '@/styles/custom-plugins.css';
+import 'react-toastify/dist/ReactToastify.css';
 import { getDirection } from '@/lib/constants';
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
@@ -14,12 +15,16 @@ import ManagedDrawer from '@/components/ui/drawer/managed-drawer';
 import DefaultSeo from '@/components/seo/default-seo';
 import PrivateRoute from '@/lib/private-route';
 import { ToastContainer } from 'react-toastify';
+import { SessionProvider } from 'next-auth/react';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
 };
 
-function App({ Component, pageProps }: AppPropsWithLayout) {
+function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page);
   const authenticationRequired = Component.authenticationRequired ?? false;
 
@@ -28,27 +33,30 @@ function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return (
     <div dir={dir}>
-      <QueryProvider pageProps={pageProps}>
-        <SearchProvider>
-          <ModalProvider>
-            <CartProvider>
-              <>
-                <DefaultSeo />
-                {authenticationRequired ? (
-                  <PrivateRoute>
-                    {getLayout(<Component {...pageProps} />)}
-                  </PrivateRoute>
-                ) : (
-                  getLayout(<Component {...pageProps} />)
-                )}
-                <ManagedModal />
-                <ManagedDrawer />
-                <ToastContainer autoClose={2000} theme="colored" />
-              </>  
-            </CartProvider>
-          </ModalProvider>
-        </SearchProvider>
-      </QueryProvider>
+      {/* <SessionProvider session={session}> */}
+        <QueryProvider pageProps={pageProps}>
+          <SearchProvider>
+            <ModalProvider>
+              <CartProvider>
+                <>
+                  <DefaultSeo />
+                  {authenticationRequired ? (
+                    <PrivateRoute>
+                      {getLayout(<Component {...pageProps} />)}
+                    </PrivateRoute>
+                  ) : (
+                    getLayout(<Component {...pageProps} />)
+                  )}
+                  <ManagedModal />
+                  <ManagedDrawer />
+                  <ToastContainer autoClose={2000} theme="colored" />
+                  {/* <SocialLogin /> */}
+                </>
+              </CartProvider>
+            </ModalProvider>
+          </SearchProvider>
+        </QueryProvider>
+      {/* </SessionProvider> */}
     </div>
   );
 }

@@ -69,7 +69,7 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
               borderTopColor:
                 variant === 'outline' ? 'currentColor' : '#ffffff',
             }}
-          />
+          ></span>
         )}
       </button>
     );

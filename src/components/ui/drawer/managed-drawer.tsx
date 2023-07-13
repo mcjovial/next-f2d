@@ -3,6 +3,7 @@ import { drawerAtom } from '@/store/drawer-atom';
 import { useAtom } from 'jotai';
 import dynamic from 'next/dynamic';
 import Drawer from './drawer';
+import { memo } from 'react';
 const CartSidebarView = dynamic(
   () => import('@/components/cart/cart-sidebar-view')
 );
@@ -16,10 +17,8 @@ const SearchFilterView = dynamic(
   () => import('@/components/search-view/sidebar-filter')
 );
 
-export default function ManagedDrawer() {
+function ManagedDrawer() {
   const [{ display, view, data }, setDrawerState] = useAtom(drawerAtom);
-
-  console.log('view', view);
 
   return (
     <Drawer
@@ -49,3 +48,5 @@ export default function ManagedDrawer() {
     </Drawer>
   );
 }
+
+export default memo(ManagedDrawer);

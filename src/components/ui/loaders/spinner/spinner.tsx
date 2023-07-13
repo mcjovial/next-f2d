@@ -11,7 +11,7 @@ interface Props {
 const Spinner = (props: Props) => {
   const { className, showText = true, text = 'Loading', simple } = props;
   return (
-    <>
+    <div>
       {simple ? (
         <span className={cn(className, styles.simple_loading)} />
       ) : (
@@ -28,7 +28,7 @@ const Spinner = (props: Props) => {
           )}
         </span>
       )}
-    </>
+    </div>
   );
 };
 

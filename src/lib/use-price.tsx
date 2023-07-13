@@ -44,13 +44,13 @@ export function formatVariantPrice({
   return { price, basePrice, discount };
 }
 
-export default function usePrice(
-  data: {
-    amount: number;
-    baseAmount?: number;
-    currencyCode?: string;
-  }
-) {
+type PriceProps = {
+  amount: number;
+  baseAmount?: number;
+  currencyCode?: string;
+};
+
+export default function usePrice(data: PriceProps) {
   const {
     // @ts-ignore
     settings: { currency },

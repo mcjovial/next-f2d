@@ -22,6 +22,7 @@
     "body-scroll-lock": "^4.0.0-beta.0",
     "camelcase-keys": "^8.0.2",
     "classnames": "^2.3.2",
+    "dayjs": "^1.11.9",
     "eslint": "8.43.0",
     "eslint-config-next": "13.4.7",
     "framer-motion": "^10.12.17",
@@ -37,7 +38,9 @@
     "overlayscrollbars": "^2.2.0",
     "overlayscrollbars-react": "^0.5.0",
     "postcss": "8.4.24",
+    "rc-collapse": "^3.7.0",
     "rc-slider": "9.7.5",
+    "rc-table": "7.22.2",
     "react": "18.2.0",
     "react-content-loader": "^6.2.1",
     "react-device-detect": "^2.2.3",
@@ -63,6 +66,7 @@
     "@types/js-cookie": "^3.0.3",
     "@types/lodash": "^4.14.195",
     "@types/overlayscrollbars": "^1.12.1",
-    "@types/react-scroll": "^1.8.7"
+    "@types/react-scroll": "^1.8.7",
+    "@types/react-select": "^5.0.1"
   }
 }
