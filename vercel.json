@@ -7,7 +7,7 @@
       "NEXT_PUBLIC_AVAILABLE_LANGUAGES": ["en", "de", "ar", "es", "he", "zh"],
 
       "NEXT_PUBLIC_SITE_URL": "",
-      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://mock.redq.io/api",
+      "NEXT_PUBLIC_REST_API_ENDPOINT": "https://staging.heartszibah.com/api/f2d",
       "NEXT_PUBLIC_ADMIN_URL": "",
       "APPLICATION_MODE": "production",
       "NEXTAUTH_URL": "",
