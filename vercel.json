@@ -3,7 +3,7 @@
     "env": {
       "NEXT_PUBLIC_DEFAULT_LANGUAGE": "en",
 
-      "NEXT_PUBLIC_ENABLE_MULTI_LANG": true,
+      "NEXT_PUBLIC_ENABLE_MULTI_LANG": "true",
       "NEXT_PUBLIC_AVAILABLE_LANGUAGES": ["en", "de", "ar", "es", "he", "zh"],
 
       "NEXT_PUBLIC_SITE_URL": "",
