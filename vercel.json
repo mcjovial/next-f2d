@@ -10,7 +10,7 @@
       "NEXT_PUBLIC_REST_API_ENDPOINT": "https://staging.heartszibah.com/api/f2d",
       "NEXT_PUBLIC_ADMIN_URL": "",
       "APPLICATION_MODE": "production",
-      "NEXTAUTH_URL": "",
+      "NEXTAUTH_URL": "https://staging.heartszibah.com/api/f2d",
       "SECRET": "",
       "GOOGLE_CLIENT_ID": "",
       "GOOGLE_CLIENT_SECRET": ""
