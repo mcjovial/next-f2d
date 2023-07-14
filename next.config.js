@@ -1,9 +1,15 @@
 /** @type {import('next').NextConfig} */
+const withPWA = require('next-pwa');
+const runtimeCaching = require('next-pwa/cache');
 const { i18n } = require('./next-i18next.config');
-
 const nextConfig = {
-  i18n,
   reactStrictMode: true,
+  i18n,
+  pwa: {
+    disable: process.env.NODE_ENV === 'development',
+    dest: 'public',
+    runtimeCaching,
+  },
   images: {
     domains: [
       'res.cloudinary.com',
@@ -22,6 +28,6 @@ const nextConfig = {
       ignoreDuringBuilds: true,
     },
   }),
-}
+};
 
-module.exports = nextConfig
+module.exports = withPWA(nextConfig);

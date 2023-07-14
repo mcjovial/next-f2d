@@ -15,14 +15,13 @@ const OrderItemList = (_: any, record: any) => {
     amount: record.pivot?.unit_price,
   });
   let name = record.name;
-
-  console.log('rec', record.pivot?.unit_price);
   
   return (
     <div className="flex items-center">
       <div className="relative flex h-16 w-16 shrink-0 overflow-hidden rounded">
+        {/* TODO: Change image url */}
         <Image
-          src={record.image ?? productPlaceholder}
+          src={record.image.original ?? productPlaceholder}
           alt={name}
           className="h-full w-full object-cover"
           layout="fill"

@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
-import 'overlayscrollbars/overlayscrollbars.css';
+import 'overlayscrollbars/css/overlayscrollbars.css';
 
 type ScrollbarProps = {
   options?: OverlayScrollbars.Options;

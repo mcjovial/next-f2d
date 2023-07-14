@@ -198,17 +198,6 @@ function OrderView({ order, language }: any) {
                   </span>
                 </p>
               )}
-              {!isEmpty(order?.billing_address) && (
-                <p className="mt-5 flex text-body-dark">
-                  <strong className="w-4/12 text-sm font-semibold text-heading">
-                    {t('text-billing-address')}
-                  </strong>
-                  :
-                  <span className="w-8/12 text-sm ltr:pl-4 rtl:pr-4">
-                    {formatAddress(order?.billing_address!)}
-                  </span>
-                </p>
-              )}
             </div>
           </div>
           {/* end of order details */}

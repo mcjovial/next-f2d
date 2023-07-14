@@ -5,7 +5,7 @@ import LoginView from '@/components/auth/login-form';
 import { useUser } from '@/utilities/queries/user';
 import { PropsWithChildren } from 'react';
 
-const PrivateRoute: React.FC<PropsWithChildren> = ({ children }) => {
+const PrivateRoute: React.FC<PropsWithChildren<any>> = ({ children }) => {
   const router = useRouter();
   const { me, isAuthorized } = useUser();
 

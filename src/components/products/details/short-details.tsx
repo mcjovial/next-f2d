@@ -10,6 +10,7 @@ import { Routes } from '@/config/routes';
 import { useModalAction } from '@/components/ui/modal/modal.context';
 import type { Product } from '@/types';
 import { useMemo } from 'react';
+import { productPlaceholder } from '@/lib/placeholders';
 
 interface ShortDetailsProps {
   product: Product;
@@ -51,7 +52,7 @@ const ShortDetails: React.FC<ShortDetailsProps> = ({ product, isSticky }) => {
           )}
         >
           <Image
-            src={image}
+            src={image ?? productPlaceholder}
             alt={name}
             layout="fill"
             objectFit="contain"

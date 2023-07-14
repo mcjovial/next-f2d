@@ -58,11 +58,11 @@ const BannerWithSearch: React.FC<BannerProps> = ({ banners }) => {
                     className="h-full min-h-140 w-full"
                     src={banner.image ?? productPlaceholder}
                     alt={banner.title ?? ''}
-                    style={{ objectFit: "cover" }}
-                    width={1080}
-                    height={960}
-                    // layout="fill"
-                    // objectFit="cover"
+                    // style={{ objectFit: "cover" }}
+                    // width={1080}
+                    // height={960}
+                    layout="fill"
+                    objectFit="cover"
                   />
                   <div
                     className={cn(

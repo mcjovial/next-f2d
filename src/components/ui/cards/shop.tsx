@@ -4,7 +4,7 @@ import { formatAddress } from '@/lib/format-address';
 import { Routes } from '@/config/routes';
 import Link from '@/components/ui/link';
 import isEmpty from 'lodash/isEmpty';
-import { productPlaceholder } from '@/lib/placeholders';
+import { logoPlaceholder, productPlaceholder } from '@/lib/placeholders';
 import Image from 'next/image';
 
 type ShopCardProps = {
@@ -27,7 +27,7 @@ const ShopCard: React.FC<ShopCardProps> = ({ shop }) => {
         <div className="relative flex h-48 w-full shrink-0 items-center justify-center overflow-hidden rounded-fulll bg-gray-300">
           <Image
             alt={t('common:text-logo')}
-            src={shop?.logo ?? productPlaceholder}
+            src={shop?.logo ?? logoPlaceholder}
             layout="fill"
             // objectFit="cover"
           />

@@ -19,10 +19,7 @@ export const CheckAvailabilityAction: React.FC<{ className?: string }> = (
     verifyCheckout({
       amount: total,
       products: items?.map((item) => formatOrderedProduct(item)),
-      shipping_address: {
-        ...(shipping_address?.address &&
-          omit(shipping_address.address, ['__typename'])),
-      },
+      shipping_address,
     });
   }
 

@@ -49,14 +49,14 @@ export const verifiedResponseAtom = atom(
   }
 );
 export const shippingAddressAtom = atom(
-  (get) => get(checkoutAtom).shipping_address,
+  (get) => get(checkoutAtom).shipping_address as Address,
   (get, set, data: Address) => {
     const prev = get(checkoutAtom);
     return set(checkoutAtom, { ...prev, shipping_address: data });
   }
 );
 export const customerContactAtom = atom(
-  (get) => get(checkoutAtom).customer_contact,
+  (get) => get(checkoutAtom).customer_contact as string,
   (get, set, data: string) => {
     const prev = get(checkoutAtom);
     return set(checkoutAtom, { ...prev, customer_contact: data });

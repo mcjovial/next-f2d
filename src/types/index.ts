@@ -117,14 +117,14 @@ export interface Address {
   id: string;
   title: string;
   type: AddressType;
-  address: {
+  // address: {
     __typename?: string;
     country: string;
     city: string;
     state: string;
     zip: string;
     street_address: string;
-  };
+  // };
   location?: {
     lat: number;
     lng: number;
@@ -146,7 +146,8 @@ export interface User {
     bio?: string;
     avatar?: string;
   };
-  address: Address[];
+  addresses: Address[];
+  address: Address
 }
 
 export interface UpdateUserInput extends Partial<User> {

@@ -1,7 +1,7 @@
 import axios from "axios";
 import Cookies from 'js-cookie';
 import { AUTH_TOKEN_KEY } from "@/lib/constants";
-import { Router } from "next/router";
+import Router from "next/router";
 import { SearchParamOptions } from "@/types";
 
 const Axios = axios.create({

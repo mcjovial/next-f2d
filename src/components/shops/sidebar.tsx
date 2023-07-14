@@ -6,7 +6,7 @@ import ReadMore from '@/components/ui/truncate';
 import { useModalAction } from '@/components/ui/modal/modal.context';
 import Scrollbar from '@/components/ui/scrollbar';
 import { getIcon } from '@/lib/get-icon';
-import { productPlaceholder } from '@/lib/placeholders';
+import { logoPlaceholder, productPlaceholder } from '@/lib/placeholders';
 import * as socialIcons from '@/components/icons/social';
 import type { Shop } from '@/types';
 import Image from 'next/image';
@@ -39,7 +39,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
         <div className="relative w-16 h-16 mx-auto overflow-hidden bg-gray-200 border border-gray-100 rounded-lg ltr:mr-4 rtl:ml-4 shrink-0">
           <Image
             alt={t('logo')}
-            src={shop?.logo ?? productPlaceholder}
+            src={shop?.logo ?? logoPlaceholder}
             layout="fill"
             objectFit="cover"
           />
@@ -69,7 +69,7 @@ const ShopSidebar: React.FC<ShopSidebarProps> = ({
               <div className="relative mx-auto mb-8 overflow-hidden bg-gray-200 border border-gray-100 rounded-lg w-44 h-44">
                 <Image
                   alt={t('logo')}
-                  src={shop?.logo! ?? productPlaceholder}
+                  src={shop?.logo! ?? logoPlaceholder}
                   layout="fill"
                   objectFit="cover"
                 />

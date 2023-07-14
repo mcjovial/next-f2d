@@ -25,11 +25,23 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
 .env*.local
-
 # vercel
 .vercel
+vercel.*.json
 
-# typescript
-*.tsbuildinfo
-next-env.d.ts
+# graphql-let
+__generated__
+*.graphql.d.ts
+*.graphqls.d.ts
+
+# PWA
+workbox-*.js
+sw.js
+
+# IDE
+.idea/
+
+# MY_TODO
+MY_TODO.md

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 
-interface Props extends React.PropsWithChildren {
+interface Props extends React.PropsWithChildren<any> {
   values: string[];
   onChange: (value: string[]) => void;
 }

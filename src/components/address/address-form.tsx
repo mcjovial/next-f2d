@@ -131,7 +131,7 @@ export default function CreateOrUpdateAddressForm() {
     };
     updateProfile({
       id: customerId,
-      address: [formattedInput],
+      address: formattedInput,
     });
   }
   return (

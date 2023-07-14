@@ -2,6 +2,7 @@ import cn from 'classnames';
 import { useTranslation } from 'next-i18next';
 import noResult from '@/assets/no-result.svg';
 import Image from 'next/image';
+import { productPlaceholder } from '@/lib/placeholders';
 interface Props {
   text?: string;
   className?: string;
@@ -13,7 +14,7 @@ const NotFound: React.FC<Props> = ({ className, text }) => {
     <div className={cn('flex flex-col items-center', className)}>
       <div className="w-full h-full flex items-center justify-center">
         <Image
-          src={noResult}
+          src={noResult ?? productPlaceholder}
           alt={text ? t(text) : t('text-no-result-found')}
           className="w-full h-full object-contain"
         />

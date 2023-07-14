@@ -39,20 +39,20 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
   );
 
   const { price: tax } = usePrice(
-    verifiedResponse && {
-      amount: verifiedResponse.total_tax ?? 0,
+    {
+      amount: verifiedResponse?.total_tax ?? 0,
     }
   );
 
   const { price: shipping } = usePrice(
-    verifiedResponse && {
-      amount: verifiedResponse.shipping_charge ?? 0,
+    {
+      amount: verifiedResponse?.shipping_charge ?? 0,
     }
   );
 
   const base_amount = calculateTotal(available_items);
   const { price: sub_total } = usePrice(
-    verifiedResponse && {
+    {
       amount: base_amount,
     }
   );
@@ -74,7 +74,7 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
       )
     : 0;
   const { price: total } = usePrice(
-    verifiedResponse && {
+    {
       amount: totalPrice <= 0 ? 0 : totalPrice,
     }
   );

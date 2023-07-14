@@ -8,7 +8,12 @@
 
       "NEXT_PUBLIC_SITE_URL": "",
       "NEXT_PUBLIC_REST_API_ENDPOINT": "https://mock.redq.io/api",
-      "NEXT_PUBLIC_ADMIN_URL": ""
+      "NEXT_PUBLIC_ADMIN_URL": "",
+      "APPLICATION_MODE": "production",
+      "NEXTAUTH_URL": "",
+      "SECRET": "",
+      "GOOGLE_CLIENT_ID": "",
+      "GOOGLE_CLIENT_SECRET": ""
     }
   }
 }
