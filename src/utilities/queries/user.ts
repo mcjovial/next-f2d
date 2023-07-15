@@ -90,6 +90,7 @@ export function useLogin() {
         setServerError('error-credential-wrong');
         return;
       }
+      toast.success('Logging Successful')
       setToken(data.token);
       setAuthorized(true);
       closeModal();
@@ -117,11 +118,12 @@ export function useRegister() {
         setToken(data?.token);
         setAuthorized(true);
         closeModal();
+        toast.success('Signup Successful, Verification mail has been sent')
         return;
       }
-      if (!data.token) {
-        toast.error(t('error-credential-wrong'));
-      }
+      // if (!data.token) {
+      //   toast.error(t('error-credential-wrong'));
+      // }
     },
     onError: (error) => {
       const {
