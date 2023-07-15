@@ -2,7 +2,7 @@ import Counter from '@/components/ui/counter';
 import AddToCartBtn from '@/components/products/add-to-cart/add-to-cart-btn';
 import { cartAnimation } from '@/lib/cart-animation';
 import { useCart } from '@/store/quick-cart/cart.context';
-import { memo, useMemo } from 'react';
+import { generateCartItem } from '@/store/quick-cart/generate-cart-item';
 
 interface Props {
   data: any;
@@ -26,14 +26,14 @@ interface Props {
   disabled?: boolean;
 }
 
-function AddToCartt({
+export const AddToCart = ({
   data,
   variant = 'helium',
   counterVariant,
   counterClass,
   variation,
   disabled,
-}: Props) {
+}: Props) => {
   const {
     addItemToCart,
     removeItemFromCart,
@@ -43,9 +43,7 @@ function AddToCartt({
     updateCartLanguage,
     language
   } = useCart();
-
-  const item = { ...data, price: Number(data.sale_price ? data.sale_price : data.price) };
-
+  const item = generateCartItem(data, variation);
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {
@@ -83,5 +81,3 @@ function AddToCartt({
     </>
   );
 };
-
-export const AddToCart = memo(AddToCartt)
