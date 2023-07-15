@@ -96,7 +96,11 @@ export function useLogin() {
       closeModal();
     },
     onError: (error: Error) => {
-      console.log(error.message);
+      const {
+        response: { data },
+      }: any = error ?? {};
+      console.log(data.message);
+      toast.error(data.message);
     },
   });
 
@@ -122,7 +126,7 @@ export function useRegister() {
         return;
       }
       // if (!data.token) {
-      //   toast.error(t('error-credential-wrong'));
+        // toast.error(t('error-credential-wrong'));
       // }
     },
     onError: (error) => {
@@ -131,6 +135,7 @@ export function useRegister() {
       }: any = error ?? {};
 
       setFormError(data);
+      toast.error(data.message);
     },
   });
 
