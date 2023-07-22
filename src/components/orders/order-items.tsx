@@ -12,16 +12,15 @@ import { FC } from 'react';
 
 const OrderItemList = (_: any, record: any) => {
   const { price } = usePrice({
-    amount: record.pivot?.unit_price,
+    amount: record.unit_price,
   });
   let name = record.name;
-  
+    
   return (
     <div className="flex items-center">
       <div className="relative flex h-16 w-16 shrink-0 overflow-hidden rounded">
-        {/* TODO: Change image url */}
         <Image
-          src={record.image.original ?? productPlaceholder}
+          src={record.product.image ?? productPlaceholder}
           alt={name}
           className="h-full w-full object-cover"
           layout="fill"
@@ -52,9 +51,9 @@ const OrderItemList = (_: any, record: any) => {
   );
 };
 
-const RenderPrice: FC = (pivot: any) => {
+const RenderPrice: FC = (subtotal: any) => {
   const { price } = usePrice({
-    amount: pivot.subtotal,
+    amount: subtotal,
   });
   return <p>{price}</p>;
 }
@@ -70,8 +69,6 @@ export const OrderItems = ({
   const { alignLeft, alignRight } = useIsRTL();
   const { openModal } = useModalAction();
 
-  console.log('ord', products, orderId);
-
   const orderTableColumns = [
     {
       title: <span className="ltr:pl-20 rtl:pr-20">{t('text-item')}</span>,
@@ -84,17 +81,17 @@ export const OrderItems = ({
     },
     {
       title: t('text-quantity'),
-      dataIndex: 'pivot',
-      key: 'pivot',
+      dataIndex: 'order_quantity',
+      key: 'order_quantity',
       align: 'center',
       width: 100,
-      render: function renderQuantity(pivot: any) {
-        return <p className="text-base">{pivot.order_quantity}</p>;
+      render: function renderQuantity(order_quantity: any) {
+        return <p className="text-base">{order_quantity}</p>;
       },
     },
     {
       title: t('text-price'),
-      dataIndex: 'pivot',
+      dataIndex: 'subtotal',
       key: 'price',
       align: alignRight,
       width: 150,
@@ -114,9 +111,6 @@ export const OrderItems = ({
             name: record.name,
             image: record.image,
             my_review: getReview(record),
-            ...(record.pivot?.variation_option_id && {
-              variation_option_id: record.pivot?.variation_option_id,
-            }),
           });
         }
 

@@ -145,8 +145,6 @@ const Details: React.FC<Props> = ({
   };
 
   const previewImages = displayImage(gallery, image);
-
-  console.log('product', previewImages);
   
   return (
     <article className="rounded-lg bg-light">

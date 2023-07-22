@@ -7,7 +7,7 @@ import { useState } from "react";
 import { FileWithPath } from "react-dropzone";
 import { getPreviewImage } from "@/lib/get-preview-image";
 import { useTranslation } from "next-i18next";
-import { couponAtom } from "@/store/checkout";
+import { couponAtom } from "@/store/checkout-atom";
 import { useAtom } from "jotai";
 import { toast } from "react-toastify";
 
@@ -56,7 +56,6 @@ export const useUploads = ({ onChange, defaultFiles }: any) => {
 
   const { mutate: upload, isLoading } = useMutation(client.settings.upload, {
     onSuccess: (data) => {
-
       if (onChange) {
         onChange(data);
         setFiles(getPreviewImage(data));
@@ -77,10 +76,10 @@ export function useVerifyCoupon() {
   let [formError, setFormError] = useState<any>(null);
 
   const { mutate, isLoading } = useMutation(client.coupons.verify, {
-    onSuccess: (data:any) => {
+    onSuccess: (data: any) => {
       if (!data.is_valid) {
         setFormError({
-          code: t('error-invalid-coupon'),
+          code: t("error-invalid-coupon"),
         });
       }
       applyCoupon(data?.coupon);

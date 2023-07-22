@@ -5,7 +5,7 @@ import Alert from '@/components/ui/alert';
 import PaystackPayment from '@/components/checkout/payment/paystack';
 import CashOnDelivery from '@/components/checkout/payment/cash-on-delivery';
 import { useAtom } from 'jotai';
-import { paymentGatewayAtom, PaymentMethodName } from '@/store/checkout';
+import { paymentGatewayAtom, PaymentMethodName } from '@/store/checkout-atom';
 import cn from 'classnames';
 
 interface PaymentMethodInformation {

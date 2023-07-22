@@ -11,7 +11,7 @@ import { CheckMark } from '@/components/icons/checkmark';
 import Badge from '@/components/ui/badge';
 import { OrderItems } from '@/components/orders/order-items';
 import { useAtom } from 'jotai';
-import { clearCheckoutAtom } from '@/store/checkout';
+import { clearCheckoutAtom } from '@/store/checkout-atom';
 import SuborderItems from '@/components/orders/suborder-items';
 import Spinner from '@/components/ui/loaders/spinner/spinner';
 import isEmpty from 'lodash/isEmpty';

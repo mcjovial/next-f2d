@@ -2,7 +2,7 @@ import { isNegative } from '@/lib/is-negative';
 import usePrice from '@/lib/use-price';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { payableAmountAtom, walletAtom } from '@/store/checkout';
+import { payableAmountAtom, walletAtom } from '@/store/checkout-atom';
 import Checkbox from '@/components/ui/forms/checkbox/checkbox';
 import { useTranslation } from 'next-i18next';
 interface Props {

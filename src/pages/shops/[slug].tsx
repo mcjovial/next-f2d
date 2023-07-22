@@ -26,8 +26,6 @@ const ShopPage: NextPageWithLayout<
   const { t } = useTranslation('banner');
 
   const isGerman = router.locale === 'de';
-
-  console.log('var', variables);
   
   return (
     <>

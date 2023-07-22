@@ -47,8 +47,6 @@ export const ThumbsCarousel: React.FC<Props> = ({
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
 
-  console.log('ran', thumbsSwiper);
-  
   return (
     <div>
       <div className="relative">

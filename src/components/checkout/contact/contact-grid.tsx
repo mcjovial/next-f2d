@@ -46,7 +46,7 @@ const ContactGrid = ({
       >
         <div className="flex items-center space-x-3 rtl:space-x-reverse md:space-x-4">
           {count && (
-            <span className="flex items-center justify-center w-8 h-8 text-base rounded-full bg-accent text-light lg:text-xl">
+            <span className="flex h-8 w-8 items-center justify-center rounded-full bg-accent text-base text-light lg:text-xl">
               {count}
             </span>
           )}
@@ -54,7 +54,7 @@ const ContactGrid = ({
         </div>
 
         <button
-          className="flex items-center text-sm font-semibold transition-colors duration-200 text-accent hover:text-accent-hover focus:text-accent-hover focus:outline-none"
+          className="flex items-center text-sm font-semibold text-accent transition-colors duration-200 hover:text-accent-hover focus:text-accent-hover focus:outline-none"
           onClick={onAddOrChange}
         >
           <PlusIcon className="h-4 w-4 stroke-2 ltr:mr-0.5 rtl:ml-0.5" />

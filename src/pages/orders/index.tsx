@@ -9,6 +9,7 @@ import NotFound from '@/components/ui/not-found';
 import { getLayout as getSiteLayout } from '@/components/layouts/layout';
 import DashboardSidebar from '@/components/dashboard/sidebar';
 import { useOrders } from '@/utilities/queries/order';
+import { useUser } from '@/utilities/queries/user';
 export { getStaticProps } from '@/utilities/general.ssr';
 
 function NoOrderFound() {
@@ -20,8 +21,9 @@ function NoOrderFound() {
 }
 
 export default function OrdersPage() {
+  const { me } = useUser();
   const { orders, isLoading, error, hasMore, loadMore, isLoadingMore } =
-    useOrders();
+    useOrders({ customer_id: me?.id });
   const [selectedOrder] = useSelectedOrder();
 
   const ordersItem:any = orders;

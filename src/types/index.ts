@@ -104,6 +104,7 @@ export interface PopularProductQueryOptions extends QueryOptions {
 export interface WishlistQueryOptions extends QueryOptions {}
 
 export interface OrderQueryOptions extends QueryOptions {
+  customer_id: string
   name: string;
   orderBy: string;
 }
@@ -264,7 +265,6 @@ export interface UserAddress {
   city: string;
   state: string;
   zip: string;
-  billing_address?: Address;
   shipping_address?: Address;
 }
 
@@ -381,14 +381,14 @@ export interface Order {
   products: Product[];
   created_at: Date;
   updated_at: Date;
-  billing_address?: Address;
   shipping_address?: Address;
   refund: Refund;
   language?: string;
 }
 
 export interface ConnectProductOrderPivot {
-  product_id: number;
+  product_id: string;
+  shop_id: string;
   order_quantity: number;
   unit_price: number;
   subtotal: number;
@@ -418,7 +418,6 @@ export interface CreateOrderInput {
   use_wallet_points?: boolean;
   delivery_fee?: number;
   delivery_time: string;
-  billing_address?: Address;
   shipping_address: Address;
   language?: string;
 }

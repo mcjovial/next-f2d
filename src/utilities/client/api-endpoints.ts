@@ -29,6 +29,7 @@ export const API_ENDPOINTS = {
   USERS_WISHLIST: '/my-wishlists',
   WISHLIST: '/wishlists',
   USERS_WISHLIST_TOGGLE: '/wishlists/toggle',
+  ORDER: '/orders/tracking-number',
   ORDERS: '/orders',
   ORDERS_STATUS: '/order-status',
   ORDERS_REFUNDS: '/refunds',

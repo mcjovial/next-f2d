@@ -5,28 +5,28 @@ import {
   OrderStatusPaginator,
   QueryOptions,
   CreateOrderInput,
-  CreateRefundInput
-} from '@/types';
+  CreateRefundInput,
+} from "@/types";
 import {
   useInfiniteQuery,
   useMutation,
   useQuery,
   useQueryClient,
-} from 'react-query';
-import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
-import { useModalAction } from '@/components/ui/modal/modal.context';
-import { useAtom } from 'jotai';
-import { verifiedResponseAtom } from '@/store/checkout';
-import { useRouter } from 'next/router';
-import { Routes } from '@/config/routes';
-import { API_ENDPOINTS } from '../client/api-endpoints';
-import client from '../client';
-import { mapPaginatorData } from '../data-mappers';
+} from "react-query";
+import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
+import { useModalAction } from "@/components/ui/modal/modal.context";
+import { useAtom } from "jotai";
+import { verifiedResponseAtom } from "@/store/checkout-atom";
+import { useRouter } from "next/router";
+import { Routes } from "@/config/routes";
+import { API_ENDPOINTS } from "../client/api-endpoints";
+import client from "../client";
+import { mapPaginatorData } from "../data-mappers";
 
 export function useOrders(options?: Partial<OrderQueryOptions>) {
   const { locale } = useRouter();
-  
+
   const formattedOptions = {
     ...options,
     // language: locale
@@ -70,7 +70,7 @@ export function useOrders(options?: Partial<OrderQueryOptions>) {
 
 export function useOrder({ tracking_number }: { tracking_number: string }) {
   const { data, isLoading, error } = useQuery<Order, Error>(
-    [API_ENDPOINTS.ORDERS, tracking_number],
+    [API_ENDPOINTS.ORDER, tracking_number],
     () => client.orders.get(tracking_number)
   );
 
@@ -81,9 +81,11 @@ export function useOrder({ tracking_number }: { tracking_number: string }) {
   };
 }
 
-export function useOrderStatuses(options: Pick<QueryOptions, 'limit' | 'language'>) {
+export function useOrderStatuses(
+  options: Pick<QueryOptions, "limit" | "language">
+) {
   const { locale } = useRouter();
-  
+
   const formattedOptions = {
     ...options,
     // language: locale
@@ -123,10 +125,9 @@ export function useOrderStatuses(options: Pick<QueryOptions, 'limit' | 'language
   };
 }
 
-export function useRefunds(options: Pick<QueryOptions, 'limit'>) {
-
+export function useRefunds(options: Pick<QueryOptions, "limit">) {
   const { locale } = useRouter();
-  
+
   const formattedOptions = {
     ...options,
     // language: locale
@@ -175,7 +176,7 @@ export function useCreateRefund() {
     client.orders.createRefund,
     {
       onSuccess: () => {
-        toast.success(t('text-refund-request-submitted'));
+        toast.success(t("text-refund-request-submitted"));
       },
       onError: (error) => {
         const {
@@ -210,9 +211,10 @@ export function useCreateOrder() {
   const { locale } = router;
 
   const { mutate: createOrder, isLoading } = useMutation(client.orders.create, {
-    onSuccess: (data) => {
-      if (data?.tracking_number) {
-        router.push(Routes.order(data?.tracking_number));
+    onSuccess: (data) => {      
+      if (data) {
+        // router.push(Routes.order(data?.tracking_number));
+        router.push(Routes.orders);
       }
     },
     onError: (error) => {
@@ -226,7 +228,7 @@ export function useCreateOrder() {
   function formatOrderInput(input: CreateOrderInput) {
     const formattedInputs = {
       ...input,
-      language: locale
+      language: locale,
     };
     createOrder(formattedInputs);
   }

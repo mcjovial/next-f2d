@@ -15,7 +15,7 @@ import {
   payableAmountAtom,
   verifiedResponseAtom,
   walletAtom,
-} from '@/store/checkout';
+} from '@/store/checkout-atom';
 import ItemCard from '@/components/checkout/item/item-card';
 import { ItemInfoRow } from '@/components/checkout/item/item-info-row';
 import PaymentGrid from '@/components/checkout/payment/payment-grid';
@@ -38,28 +38,22 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
     (item) => !verifiedResponse?.unavailable_products?.includes(item.id)
   );
 
-  const { price: tax } = usePrice(
-    {
-      amount: verifiedResponse?.total_tax ?? 0,
-    }
-  );
+  const { price: tax } = usePrice({
+    amount: verifiedResponse?.total_tax ?? 0,
+  });
 
-  const { price: shipping } = usePrice(
-    {
-      amount: verifiedResponse?.shipping_charge ?? 0,
-    }
-  );
+  const { price: shipping } = usePrice({
+    amount: verifiedResponse?.shipping_charge ?? 0,
+  });
 
   const base_amount = calculateTotal(available_items);
-  const { price: sub_total } = usePrice(
-    {
-      amount: base_amount,
-    }
-  );
+  const { price: sub_total } = usePrice({
+    amount: base_amount,
+  });
 
   const { price: discountPrice } = usePrice(
     //@ts-ignore
-    discount && {
+    {
       amount: Number(discount),
     }
   );
@@ -73,14 +67,12 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
         Number(discount)
       )
     : 0;
-  const { price: total } = usePrice(
-    {
-      amount: totalPrice <= 0 ? 0 : totalPrice,
-    }
-  );
+  const { price: total } = usePrice({
+    amount: totalPrice <= 0 ? 0 : totalPrice,
+  });
   return (
     <div className={className}>
-      <div className="flex flex-col pb-2 border-b border-border-200">
+      <div className="flex flex-col border-b border-border-200 pb-2">
         {!isEmptyCart ? (
           items?.map((item) => {
             const notAvailable = verifiedResponse?.unavailable_products?.find(
@@ -111,7 +103,7 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
             <span className="flex items-center text-xs font-semibold text-red-500 ltr:mr-auto rtl:ml-auto">
               ({coupon?.code})
               <button onClick={() => setCoupon(null)}>
-                <CloseIcon className="w-3 h-3 ltr:ml-2 rtl:mr-2" />
+                <CloseIcon className="h-3 w-3 ltr:ml-2 rtl:mr-2" />
               </button>
             </span>
             <span className="text-sm text-body">{discountPrice}</span>
@@ -121,7 +113,7 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
             <Coupon />
           </div>
         )}
-        <div className="flex justify-between pt-3 border-t-4 border-double border-border-200">
+        <div className="flex justify-between border-t-4 border-double border-border-200 pt-3">
           <p className="text-base font-semibold text-heading">
             {t('text-total')}
           </p>
@@ -136,7 +128,7 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
         />
       )}
       {use_wallet && !Boolean(payableAmount) ? null : (
-        <PaymentGrid className="p-5 mt-10 border border-gray-200 bg-light" />
+        <PaymentGrid className="mt-10 border border-gray-200 bg-light p-5" />
       )}
       <PlaceOrderAction>{t('text-place-order')}</PlaceOrderAction>
     </div>

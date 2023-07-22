@@ -1,15 +1,14 @@
+import { Shop } from '@/types';
 import isEmpty from 'lodash/isEmpty';
 interface Item {
   id: string | number;
   name: string;
   slug: string;
-  image: {
-    thumbnail: string;
-    [key: string]: unknown;
-  };
+  image: string;
   price: number;
   sale_price?: number;
   quantity?: number;
+  shop: Shop;
   [key: string]: unknown;
   language: string;
 }
@@ -31,7 +30,7 @@ export function generateCartItem(item: Item, variation: Variation) {
     sale_price,
     quantity,
     unit,
-    is_digital,
+    shop,
     language
   } = item;
   // if (!isEmpty(variation)) {
@@ -56,8 +55,8 @@ export function generateCartItem(item: Item, variation: Variation) {
     name,
     slug,
     unit,
-    is_digital,
-    image: image?.thumbnail,
+    shop_id: shop.id,
+    image: image,
     stock: quantity,
     price: Number(sale_price ? sale_price : price),
     language

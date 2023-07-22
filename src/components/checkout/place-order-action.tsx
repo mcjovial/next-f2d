@@ -6,7 +6,7 @@ import ValidationError from '@/components/ui/validation-error';
 import Button from '@/components/ui/button';
 import { formatOrderedProduct } from '@/lib/format-ordered-product';
 import { useCart } from '@/store/quick-cart/cart.context';
-import { checkoutAtom, discountAtom, walletAtom } from '@/store/checkout';
+import { checkoutAtom, discountAtom, walletAtom } from '@/store/checkout-atom';
 import {
   calculatePaidTotal,
   calculateTotal,
@@ -19,19 +19,18 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
   const { t } = useTranslation('common');
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
   const { createOrder, isLoading } = useCreateOrder();
-  const { locale } : any = useRouter();
+  const { locale }: any = useRouter();
   const { items } = useCart();
 
   const { orderStatuses } = useOrderStatuses({
     limit: 1,
-    language: locale
+    language: locale,
   });
 
   const [
     {
-      billing_address,
       shipping_address,
-      delivery_time,
+      // delivery_time,
       coupon,
       verified_response,
       customer_contact,
@@ -83,18 +82,16 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
       sales_tax: verified_response?.total_tax,
       delivery_fee: verified_response?.shipping_charge,
       total,
-      delivery_time: delivery_time?.title,
+      // delivery_time: delivery_time?.title,
       customer_contact,
       payment_gateway,
       use_wallet_points,
-      billing_address,
     };
     if (payment_gateway === 'PAYSTACK') {
       //@ts-ignore
       input.token = token;
     }
 
-    // delete input.billing_address.__typename;
     // delete input.shipping_address.__typename;
     //@ts-ignore
     createOrder(input);
@@ -103,16 +100,13 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
     Boolean(item.is_digital)
   );
 
-  const formatRequiredFields = isDigitalCheckout
-    ? [customer_contact, payment_gateway, available_items]
-    : [
-        customer_contact,
-        payment_gateway,
-        billing_address,
-        shipping_address,
-        delivery_time,
-        available_items,
-      ];
+  const formatRequiredFields = [
+    customer_contact,
+    payment_gateway,
+    shipping_address,
+    // delivery_time,
+    available_items,
+  ];
   const isAllRequiredFieldSelected = formatRequiredFields.every(
     (item) => !isEmpty(item)
   );

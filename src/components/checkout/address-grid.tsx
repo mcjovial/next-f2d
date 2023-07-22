@@ -36,7 +36,7 @@ export const AddressGrid: React.FC<AddressesProps> = ({
         const index = addresses.findIndex((a) => a.id === selectedAddress.id);
         setAddress(addresses[index]);
       } else {
-        setAddress(addresses?.[0]);
+        setAddress(addresses[0]);
       }
     }
   }, [addresses, addresses?.length, selectedAddress?.id, setAddress]);

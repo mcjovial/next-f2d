@@ -43,7 +43,9 @@ export const AddToCart = ({
     updateCartLanguage,
     language
   } = useCart();
+
   const item = generateCartItem(data, variation);
+
   const handleAddClick = (
     e: React.MouseEvent<HTMLButtonElement | MouseEvent>
   ) => {

@@ -3,7 +3,7 @@ import Input from '@/components/ui/forms/input';
 import Button from '@/components/ui/button';
 import { useForm } from 'react-hook-form';
 import { useTranslation } from 'next-i18next';
-import { couponAtom } from '@/store/checkout';
+import { couponAtom } from '@/store/checkout-atom';
 import { useAtom } from 'jotai';
 import classNames from 'classnames';
 import { useVerifyCoupon } from '@/utilities/queries/settings';
@@ -23,7 +23,11 @@ const Coupon = ({ theme }: { theme?: 'dark' }) => {
     setError,
     formState: { errors },
   } = useForm<FormTypes>();
-  const { mutate: verifyCoupon, isLoading: loading, formError } = useVerifyCoupon();
+  const {
+    mutate: verifyCoupon,
+    isLoading: loading,
+    formError,
+  } = useVerifyCoupon();
   if (!hasCoupon && !coupon) {
     return (
       <p
@@ -36,26 +40,8 @@ const Coupon = ({ theme }: { theme?: 'dark' }) => {
     );
   }
   function onSubmit(code: FormTypes) {
-    // verifyCoupon(
-    //   {
-    //     code,
-    //   }
-    //   // {
-    //   //   onSuccess: (data) => {
-    //   //     if (data.is_valid) {
-    //   //       applyCoupon(data.coupon);
-    //   //       setHasCoupon(false);
-    //   //     } else {
-    //   //       setError('code', {
-    //   //         type: 'manual',
-    //   //         message: 'error-invalid-coupon',
-    //   //       });
-    //   //     }
-    //   //   },
-    //   // }
-    // );
     verifyCoupon({
-      code: code?.code
+      code: code?.code,
     });
   }
 

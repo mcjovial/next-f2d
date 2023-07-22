@@ -90,7 +90,6 @@ const OrderDetails = ({ order }: Props) => {
     products,
     status,
     shipping_address,
-    billing_address,
     tracking_number,
     refund,
   } : any = order ?? {};
@@ -142,16 +141,6 @@ const OrderDetails = ({ order }: Props) => {
               {formatAddress(shipping_address)}
             </span>
           </div>
-
-          {/* <div>
-            <span className="mb-2 block text-sm font-bold text-heading">
-              {t('text-billing-address')}
-            </span>
-
-            <span className="text-sm text-body">
-              {formatAddress(billing_address)}
-            </span>
-          </div> */}
         </div>
 
         <div className="flex w-full flex-col px-5 py-4 md:w-2/5">
