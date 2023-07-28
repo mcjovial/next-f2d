@@ -396,6 +396,7 @@ export interface ConnectProductOrderPivot {
 
 enum PaymentGatewayType {
   PAYSTACK = 'Paystack',
+  FLUTTERWAVE = 'Flutterwave',
   CASH_ON_DELIVERY = 'Cash on delivery',
   CASH = 'Cash',
   FULL_WALLET_PAYMENT = 'Full wallet payment',

@@ -17,7 +17,7 @@ import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useModalAction } from "@/components/ui/modal/modal.context";
 import { useAtom } from "jotai";
-import { verifiedResponseAtom } from "@/store/checkout-atom";
+import { clearCheckoutAtom, verifiedResponseAtom } from "@/store/checkout-atom";
 import { useRouter } from "next/router";
 import { Routes } from "@/config/routes";
 import { API_ENDPOINTS } from "../client/api-endpoints";
@@ -209,10 +209,12 @@ export function useCreateRefund() {
 export function useCreateOrder() {
   const router = useRouter();
   const { locale } = router;
+  const [_, resetCheckout] = useAtom(clearCheckoutAtom);
 
   const { mutate: createOrder, isLoading } = useMutation(client.orders.create, {
     onSuccess: (data) => {      
       if (data) {
+        resetCheckout();
         // router.push(Routes.order(data?.tracking_number));
         router.push(Routes.orders);
       }

@@ -2,12 +2,15 @@ import { Address, Coupon } from '@/types';
 import { CHECKOUT } from '@/lib/constants';
 import { atom } from 'jotai';
 import { atomWithStorage } from 'jotai/utils';
+import { FlutterWaveResponse } from 'flutterwave-react-v3/dist/types';
 interface DeliveryTime {
   id: string;
   title: string;
   description: string;
 }
 interface VerifiedResponse {
+  split: any[];
+  amount: number;
   products: any[]
   total_tax: number;
   shipping_charge: number;
@@ -29,14 +32,15 @@ interface CheckoutState {
 export const defaultCheckout: CheckoutState = {
   shipping_address: null,
   delivery_time: null,
-  payment_gateway: 'PAYSTACK',
+  payment_gateway: 'FLUTTERWAVE',
   customer_contact: '',
   verified_response: null,
+  rave_payment_response: null,
   coupon: null,
   payable_amount: 0,
   use_wallet: false,
 };
-export type PaymentMethodName = 'CASH_ON_DELIVERY' | 'PAYSTACK';
+export type PaymentMethodName = 'CASH_ON_DELIVERY' | 'PAYSTACK' | 'FLUTTERWAVE';
 
 // Original atom.
 export const checkoutAtom = atomWithStorage(CHECKOUT, defaultCheckout);
@@ -83,6 +87,13 @@ export const verifiedResponseAtom = atom(
   (get, set, data: VerifiedResponse | null) => {
     const prev = get(checkoutAtom);
     return set(checkoutAtom, { ...prev, verified_response: data });
+  }
+);
+export const ravePaymentResponseAtom = atom(
+  (get) => get(checkoutAtom).rave_payment_response,
+  (get, set, data: FlutterWaveResponse | null) => {
+    const prev = get(checkoutAtom);
+    return set(checkoutAtom, { ...prev, rave_payment_response: data });
   }
 );
 export const couponAtom = atom(

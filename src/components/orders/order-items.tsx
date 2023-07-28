@@ -30,11 +30,11 @@ const OrderItemList = (_: any, record: any) => {
       <div className="flex flex-col overflow-hidden ltr:ml-4 rtl:mr-4">
         <div className="mb-1 flex space-x-1 rtl:space-x-reverse">
           <Link
-            href={Routes.product(record?.slug)}
+            href={Routes.product(record?.product.slug)}
             className="inline-block overflow-hidden truncate text-sm text-body transition-colors hover:text-accent hover:underline"
             locale={record?.language}
           >
-            {name}
+            {record.product.name}
           </Link>
           <span className="inline-block overflow-hidden truncate text-sm text-body">
             x

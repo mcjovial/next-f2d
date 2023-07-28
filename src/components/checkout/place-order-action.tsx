@@ -31,6 +31,7 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
     {
       shipping_address,
       // delivery_time,
+      rave_payment_response,
       coupon,
       verified_response,
       customer_contact,
@@ -71,6 +72,10 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
       setErrorMessage('Please Pay First');
       return;
     }
+    if (!use_wallet_points && payment_gateway === 'FLUTTERWAVE' && !rave_payment_response) {
+      setErrorMessage('Please pay to proceed');
+      return;
+    }
     let input = {
       //@ts-ignore
       products: available_items?.map((item) => formatOrderedProduct(item)),
@@ -86,6 +91,7 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
       customer_contact,
       payment_gateway,
       use_wallet_points,
+      rave_payment_response,
     };
     if (payment_gateway === 'PAYSTACK') {
       //@ts-ignore
@@ -110,6 +116,7 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
   const isAllRequiredFieldSelected = formatRequiredFields.every(
     (item) => !isEmpty(item)
   );
+
   return (
     <>
       <Button
