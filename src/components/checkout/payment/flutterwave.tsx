@@ -85,8 +85,6 @@ const FlutterwavePayment = () => {
   };
 
   const handleFlutterPayment = useFlutterwave(config);  
-
-  console.log('split', config);
   
   return (
     <>

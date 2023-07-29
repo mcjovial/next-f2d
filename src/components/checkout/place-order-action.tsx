@@ -91,6 +91,7 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
       customer_contact,
       payment_gateway,
       use_wallet_points,
+      shipping_address: shipping_address?.id,
       rave_payment_response,
     };
     if (payment_gateway === 'PAYSTACK') {
@@ -116,7 +117,7 @@ export const PlaceOrderAction: React.FC<{ className?: string }> = (props) => {
   const isAllRequiredFieldSelected = formatRequiredFields.every(
     (item) => !isEmpty(item)
   );
-
+  
   return (
     <>
       <Button

@@ -419,7 +419,7 @@ export interface CreateOrderInput {
   use_wallet_points?: boolean;
   delivery_fee?: number;
   delivery_time: string;
-  shipping_address: Address;
+  shipping_address: string;
   language?: string;
 }
 
