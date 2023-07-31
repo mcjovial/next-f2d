@@ -15,7 +15,7 @@ export default function Maps(props: Props) {
           <h3 className="mb-8 text-2xl font-bold text-heading">
             Verify your Location
           </h3>
-          <PrimoMap />
+          <PrimoMap crud={false} />
         </div>
       </div>
     </>
