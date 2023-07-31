@@ -15,16 +15,15 @@ interface Props {
     lng: number;
     title: string;
   }
+  crud: boolean
 }
 
-const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues}) => {
+const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues, crud = true}) => {
   const { location, country } = useGeolocation();
   const mapRef = useRef<google.maps.Map | null>(null);
   const [selectedLocation, setSelectedLocation] = useState<Coordinates>({ lat: 0, lng: 0 });
   const [address, setAddress] = useState<string>('');
   const [title, setTitle] = useState<string>('');
-
-  console.log('add', defaultValues);
 
   useEffect(() => {
     if (defaultValues?.lat && defaultValues.lng) {
@@ -76,7 +75,7 @@ const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues}) => {
     }
     // Call the reverse geocoding function to get the address
     reverseGeocode(selectedLocation.lat, selectedLocation.lng);
-    if (onsubmit) {
+    if (crud) {
       onSubmit({ selectedLocation, address, title, country });
     }
   };  
@@ -103,7 +102,7 @@ const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues}) => {
             <p className="w-full rounded-md border p-2">{address}</p>
           </div>
           <form onSubmit={handleFormSubmit} className="w-full space-y-3">
-            {onSubmit && <label className="flex items-center gap-x-5">
+            {crud && <label className="flex items-center gap-x-5">
               <span className="w-48">Title:</span>
               <input
                 className="placeholder:text-gray_500 focus:ring-accent block w-full rounded-md border-0 px-3.5 py-2 text-base text-black shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-sm focus:outline-0 focus:ring-2 focus:ring-inset"
@@ -135,7 +134,7 @@ const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues}) => {
             </label>
             <div className="flex justify-end">
               <button className="rounded bg-accent hover:bg-amber-500 py-2 px-4 text-white" type="submit">
-                {onSubmit ? 'Update Map': 'Check'}
+                {crud ? 'Update Map': 'Check'}
               </button>
             </div>
           </form>
