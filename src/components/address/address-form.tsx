@@ -9,15 +9,19 @@ import { useModalState } from '@/components/ui/modal/modal.context';
 import { Form } from '@/components/ui/forms/form';
 import { AddressType } from '@/utilities/constants';
 import { useUpdateUser } from '@/utilities/queries/user';
+import PrimoMap from '../maps/primo-map';
 
 type FormValues = {
   title: string;
   type: AddressType;
   country: string;
-  city: string;
-  state: string;
-  zip: string;
-  street_address: string;
+  selectedLocation: Record<string, any>;
+  address: string;
+};
+
+type Location = {
+  lat: number;
+  lng: number;
 };
 
 const addressSchema = yup.object().shape({
@@ -27,11 +31,11 @@ const addressSchema = yup.object().shape({
   //   .required('error-type-required'),
   title: yup.string().required('error-title-required'),
   // address: yup.object().shape({
-    country: yup.string().required('error-country-required'),
-    city: yup.string().required('error-city-required'),
-    state: yup.string().required('error-state-required'),
-    zip: yup.string().required('error-zip-required'),
-    street_address: yup.string().required('error-street-required'),
+  country: yup.string().required('error-country-required'),
+  city: yup.string().required('error-city-required'),
+  state: yup.string().required('error-state-required'),
+  zip: yup.string().required('error-zip-required'),
+  street_address: yup.string().required('error-street-required'),
   // }),
 });
 
@@ -41,7 +45,7 @@ export const AddressForm: React.FC<any> = ({
   isLoading,
 }) => {
   const { t } = useTranslation('common');
-  
+
   return (
     <Form<FormValues>
       onSubmit={onSubmit}
@@ -120,31 +124,36 @@ export default function CreateOrUpdateAddressForm() {
     data: { customerId, address, type },
   } = useModalState();
   const { mutate: updateProfile } = useUpdateUser();
-  
-  function onSubmit(values: FormValues) {    
+
+  function onSubmit(values: FormValues) {
     const formattedInput = {
       id: address?.id,
       // customer_id: customerId,
-      ...values,
+      country: values.country,
+      street_address: values.address,
+      lat: values.selectedLocation.lat,
+      lng: values.selectedLocation.lng,
       title: values.title,
       type: AddressType.USER,
     };
+
     updateProfile({
       id: customerId,
       address: formattedInput,
     });
   }
+
   return (
-    <div className="min-h-screen bg-light p-5 sm:p-8 md:min-h-0 md:rounded-xl">
+    <div className="min-h-screen w-full bg-light p-5 sm:p-8 md:min-h-0 md:rounded-xl">
       <h1 className="mb-4 text-center text-lg font-semibold text-heading sm:mb-6">
         {address ? t('text-update') : t('text-add-new')} {t('text-address')}
       </h1>
-      <AddressForm
+      <PrimoMap
         onSubmit={onSubmit}
         defaultValues={{
-          title: address?.title ?? '',
-          type: address?.type ?? type,
-          ...address,
+          lat: Number(address?.lat),
+          lng: Number(address?.lng),
+          title: address?.title,
         }}
       />
     </div>

@@ -1,3 +1,4 @@
+import useGeolocation from "@/lib/hooks/use-geolocation";
 import { ravePaymentResponseAtom, verifiedResponseAtom } from "@/store/checkout-atom";
 import { useSettings } from "@/utilities/queries/settings";
 import { useUser } from "@/utilities/queries/user";
@@ -26,27 +27,9 @@ import { useEffect, useState } from "react";
 // };
 
 const FlutterwavePayment = () => {
-  // const public_key = process.env.FLW_PUBLIC_KEY as string;
-  const [userCountry, setUserCountry] = useState('');
-  const [userCurrency, setUserCurrency] = useState('');
-  const [splitData, setSplitData] = useState([]);
-
-  useEffect(() => {
-    const detectCountry = async () => {
-      const response = await fetch('https://ipinfo.io/?token=e4db39bc61d63d');
-      const data = await response.json();
-      const country = data.country;
-
-      const countryResponse = await fetch(
-        `https://restcountries.com/v3.1/alpha/${data.country}`
-      );
-      const countryData = await countryResponse.json();
-
-      setUserCurrency(Object.keys(countryData[0].currencies)[0]);
-    };
-
-    detectCountry();
-  }, []);
+  const public_key = process.env.NEXT_PUBLIC_FLW_PUBLIC_KEY as string;
+  const { country, currency } = useGeolocation();
+  const [splitData, setSplitData] = useState<any>([]);
 
   const { me } = useUser();
   const { settings } = useSettings();
@@ -66,10 +49,10 @@ const FlutterwavePayment = () => {
   }, [])
   
   const config: FlutterwaveConfig = {
-    public_key: 'FLWPUBK_TEST-115920d22b96146c7acae422a7dc66ca-X',
+    public_key,
     tx_ref: Date.now().toString(),
     amount: verifiedResponse?.amount!,
-    currency: userCurrency,
+    currency,
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: me?.email!,
