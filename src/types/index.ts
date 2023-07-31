@@ -118,14 +118,8 @@ export interface Address {
   id: string;
   title: string;
   type: AddressType;
-  // address: {
-    __typename?: string;
-    country: string;
-    city: string;
-    state: string;
-    zip: string;
-    street_address: string;
-  // };
+  country: string;
+  street_address: string;
   location?: {
     lat: number;
     lng: number;
