@@ -44,7 +44,6 @@ const ShopsPage: NextPageWithLayout = () => {
             <SelectCountry selectedContry={selectedContry} setSelectedContry={setSelectedContry} />
           </div>
 
-          {/* <ShopsGrid /> */}
           <Tab.Group>
             <Tab.List className="flex space-x-1 rounded-lg bg-slate-400/20 p-1 mb-3">
               <Tab
