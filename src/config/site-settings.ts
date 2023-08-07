@@ -158,8 +158,8 @@ export const siteSettings = {
             href: '/',
           },
           {
-            name: 'text-sitemap',
-            href: '/',
+            name: 'text-map',
+            href: '/maps',
           },
         ],
       },
