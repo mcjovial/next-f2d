@@ -12,8 +12,10 @@
   },
   "dependencies": {
     "@headlessui/react": "1.6.5",
+    "@heroicons/react": "^2.0.18",
     "@hookform/resolvers": "2.8.8",
     "@reach/portal": "0.16.2",
+    "@react-google-maps/api": "^2.19.2",
     "axios": "0.26.1",
     "body-scroll-lock": "4.0.0-beta.0",
     "camelcase-keys": "7.0.2",

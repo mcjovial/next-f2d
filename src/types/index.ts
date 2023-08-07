@@ -74,6 +74,8 @@ export interface TagQueryOptions extends QueryOptions {
 export interface ShopQueryOptions extends QueryOptions {
   name: string;
   is_active: number;
+  country?: string;
+  currency?: string;
 }
 
 export interface ProductQueryOptions extends QueryOptions {
@@ -284,6 +286,11 @@ export interface Shop {
   description: string;
   cover_image: string;
   logo: string;
+  link?: string;
+  address: {
+    lat: string;
+    lng: string;
+  }
 }
 
 export interface Product {

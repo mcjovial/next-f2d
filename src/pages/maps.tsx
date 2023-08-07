@@ -1,6 +1,4 @@
-// import MapWithClick from '@/components/maps/MapWithClick';
 import { getLayout } from '@/components/layouts/layout';
-import LocationPicker from '@/components/maps/location-picker-map';
 import PrimoMap from '@/components/maps/primo-map';
 import { GetStaticProps } from 'next';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
