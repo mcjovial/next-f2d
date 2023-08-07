@@ -37,7 +37,7 @@ const ShopsPage: NextPageWithLayout = () => {
     <>
       <div className="min-h-screen bg-light ">
         <div className="mx-auto flex w-full max-w-6xl flex-col p-8 pt-14">
-          <div className='flex justify-between items-center'>
+          <div className='flex justify-between items-start'>
             <h3 className="mb-8 text-2xl font-bold text-heading">
               {t('text-shops-nearby')}
             </h3>
@@ -58,7 +58,7 @@ const ShopsPage: NextPageWithLayout = () => {
                   )
                 }
               >
-                Grid view
+                Map view
               </Tab>
               <Tab
                 className={({ selected }) =>
@@ -71,12 +71,12 @@ const ShopsPage: NextPageWithLayout = () => {
                   )
                 }
               >
-                Map view
+                Grid view
               </Tab>
             </Tab.List>
             <Tab.Panels>
-              <Tab.Panel><ShopsGrid shops={ shops} isLoading={isLoading} limit={limit} hasMore={hasMore} loadMore={loadMore} isLoadingMore={isLoadingMore} /></Tab.Panel>
               <Tab.Panel><ShopsMapView shops={ shops} isLoading={isLoading} /></Tab.Panel>
+              <Tab.Panel><ShopsGrid shops={ shops} isLoading={isLoading} limit={limit} hasMore={hasMore} loadMore={loadMore} isLoadingMore={isLoadingMore} /></Tab.Panel>
             </Tab.Panels>
           </Tab.Group>
         </div>

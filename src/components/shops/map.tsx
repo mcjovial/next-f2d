@@ -23,8 +23,6 @@ interface ShopMapProps {
 
 const ShopMap: React.FC<ShopMapProps> = ({ shops }) => {
   const [selectedShop, setSelectedShop] = useState<Shop | null>(null);
-
-  console.log('se', selectedShop);
   
   return (
     <GoogleMap
