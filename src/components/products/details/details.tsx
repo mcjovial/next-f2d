@@ -24,6 +24,9 @@ import { useIntersection } from 'react-use';
 import { StarIcon } from '@/components/icons/star-icon';
 import { useUser } from '@/utilities/queries/user';
 import { useInWishlist, useToggleWishlist } from '@/utilities/queries/wishlist';
+import { useCart } from '@/store/quick-cart/cart.context';
+import Button from '@/components/ui/button';
+import { drawerAtom } from '@/store/drawer-atom';
 
 function FavoriteButton({
   productId,
@@ -146,6 +149,14 @@ const Details: React.FC<Props> = ({
 
   const previewImages = displayImage(gallery, image);
   
+  const { isInCart } = useCart();
+
+  const [__, setDisplayCart] = useAtom(drawerAtom);
+
+  function handleCartSidebar() {
+    setDisplayCart({ display: true, view: 'cart' });
+  }
+  
   return (
     <article className="rounded-lg bg-light">
       <div className="flex flex-col border-b border-border-200 border-opacity-70 md:flex-row">
@@ -238,6 +249,7 @@ const Details: React.FC<Props> = ({
                   data={product}
                   variant="big"
                 />
+                {isInCart(product.id) && <Button onClick={handleCartSidebar} className='w-full mt-2 sm:hidden'>Buy now</Button>}
               </div>
 
               <>
