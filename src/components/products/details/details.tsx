@@ -154,6 +154,7 @@ const Details: React.FC<Props> = ({
   const [__, setDisplayCart] = useAtom(drawerAtom);
 
   function handleCartSidebar() {
+    closeModal();
     setDisplayCart({ display: true, view: 'cart' });
   }
   
