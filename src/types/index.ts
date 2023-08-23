@@ -8,13 +8,14 @@ export type NextPageWithLayout<P = {}> = NextPage<P> & {
 };
 
 export interface HomePageProps {
-  variables?: {
-    products: any;
-    popularProducts?: any;
-    categories: any;
-  };
+  variables: HomePageVariables;
 }
 
+export interface HomePageVariables {
+  products: any;
+  popularProducts: any;
+  categories: any;
+};
 export interface Banner {
   id: string;
   title: string;
@@ -31,9 +32,15 @@ export interface Settings {
   name: string;
   slug: string;
   options: {
-    [key: string]: string;
+    [key: string]: any;
   };
 }
+
+export interface Currency {
+  id?: number;
+  name: string;
+  code: string;
+};
 
 export interface SearchParamOptions {
   type: string;
@@ -85,6 +92,7 @@ export interface ProductQueryOptions extends QueryOptions {
   name: string;
   categories: string;
   price: string;
+  currency: string;
   language: string;
   searchType: string;
   searchQuery: string;

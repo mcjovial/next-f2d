@@ -80,6 +80,8 @@ const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues, crud = true}) => {
     }
   };  
   
+  console.log('check', selectedLocation);
+  
   return (
     <div className='w-full'>
       <div style={{ height: '500px', width: '100%' }}>

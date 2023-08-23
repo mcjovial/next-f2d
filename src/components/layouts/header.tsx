@@ -9,6 +9,7 @@ import { useTranslation } from 'next-i18next';
 import { useMobileHeaderSearch } from '@/store/display-mobile-header-search-atom';
 import StaticMenu from './menu/static-menu';
 import { useAuth } from '@/store/authorization-atom';
+import CurrencyDropdownMenu from './menu/currency-menu';
 
 const Search = dynamic(() => import('@/components/ui/search/search'));
 const AuthorizedMenu = dynamic(() => import('./menu/authorized-menu'), {
@@ -63,6 +64,9 @@ const Header = () => {
             ) : (
               ''
             )}
+            <div className="hidden ltr:ml-10 ltr:mr-auto rtl:mr-10 rtl:ml-auto xl:block">
+            <CurrencyDropdownMenu />
+          </div>
           </div>
           {isHomePage ? (
             <>

@@ -30,8 +30,8 @@ export const getStaticProps: GetStaticProps<
     ({ queryKey }) => client.settings.all(queryKey[1] as SettingsQueryOptions)
   );
   const productVariables = {
-    // type: pageType,
     limit: PRODUCTS_PER_PAGE,
+    currency: 'NGN'
   };
   await queryClient.prefetchInfiniteQuery(
     [API_ENDPOINTS.PRODUCTS, { limit: PRODUCTS_PER_PAGE, /*type: pageType,*/ language: locale }],

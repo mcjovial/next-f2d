@@ -55,11 +55,15 @@ export default function usePrice(data: PriceProps) {
     // @ts-ignore
     settings: { currency },
   } = useSettings();
+  const router = useRouter();
+  const { currency: selectedCurrency } = router.query;
+
+  const customerCurrency = selectedCurrency || currency
 
   // const { amount, baseAmount, currencyCode = currency } = data ?? {};
   const amount = data.amount;
   const baseAmount = data?.baseAmount;
-  const currencyCode = data?.currencyCode || currency;
+  const currencyCode = data?.currencyCode || customerCurrency;
   
   const { locale } = useRouter();
   const currentLocale = locale ? locale : 'en';

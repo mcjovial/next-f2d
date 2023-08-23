@@ -5,7 +5,6 @@ import {
   withScriptjs,
   Marker,
   GoogleMapProps,
-  // withGoogleMapProps,
 } from 'react-google-maps';
 
 interface LocationPickerMapProps extends GoogleMapProps {
@@ -25,11 +24,11 @@ const LocationPickerMap = withScriptjs(
       <GoogleMap
         defaultZoom={8}
         // defaultCenter={{ lat: defaultLat, lng: defaultLng }}
-        center={{ lat: defaultLat, lng: defaultLng }}
+        center={{ lat: Number(defaultLat), lng: Number(defaultLng) }}
         onClick={handleMapClick}
       >
         {/* Optional: You can display a marker to show the default location */}
-        <Marker position={{ lat: defaultLat, lng: defaultLng }} />
+        <Marker position={{ lat: Number(defaultLat), lng: Number(defaultLng) }} />
       </GoogleMap>
     );
   })

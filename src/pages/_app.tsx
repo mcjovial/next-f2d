@@ -16,6 +16,7 @@ import DefaultSeo from '@/components/seo/default-seo';
 import PrivateRoute from '@/lib/private-route';
 import { ToastContainer } from 'react-toastify';
 import { SessionProvider } from 'next-auth/react';
+import { CurrencyProvider } from '@/store/currency/currency.context';
 
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout;
@@ -35,26 +36,28 @@ function App({
     <div dir={dir}>
       {/* <SessionProvider session={session}> */}
         <QueryProvider pageProps={pageProps}>
-          <SearchProvider>
-            <ModalProvider>
-              <CartProvider>
-                <>
-                  <DefaultSeo />
-                  {authenticationRequired ? (
-                    <PrivateRoute>
-                      {getLayout(<Component {...pageProps} />)}
-                    </PrivateRoute>
-                  ) : (
-                    getLayout(<Component {...pageProps} />)
-                  )}
-                  <ManagedModal />
-                  <ManagedDrawer />
-                  <ToastContainer autoClose={2000} theme="colored" />
-                  {/* <SocialLogin /> */}
-                </>
-              </CartProvider>
-            </ModalProvider>
-          </SearchProvider>
+          <CurrencyProvider>
+            <SearchProvider>
+              <ModalProvider>
+                <CartProvider>
+                  <>
+                    <DefaultSeo />
+                    {authenticationRequired ? (
+                      <PrivateRoute>
+                        {getLayout(<Component {...pageProps} />)}
+                      </PrivateRoute>
+                    ) : (
+                      getLayout(<Component {...pageProps} />)
+                    )}
+                    <ManagedModal />
+                    <ManagedDrawer />
+                    <ToastContainer autoClose={2000} theme="colored" />
+                    {/* <SocialLogin /> */}
+                  </>
+                </CartProvider>
+              </ModalProvider>
+            </SearchProvider>
+          </CurrencyProvider>
         </QueryProvider>
       {/* </SessionProvider> */}
     </div>

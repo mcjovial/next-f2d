@@ -23,7 +23,7 @@ import { formatProductsArgs } from '../format-products-args';
 
 export function useProducts(options?: Partial<ProductQueryOptions>) {
   const { locale } = useRouter();
-
+  
   const formattedOptions = {
     ...formatProductsArgs(options),
     language: locale,
