@@ -9,7 +9,6 @@ import useGeolocation from '@/lib/hooks/use-geolocation';
 import { SHOPS_LIMIT } from '@/lib/constants';
 import { useShops } from '@/utilities/queries/shop';
 import ErrorMessage from '@/components/ui/error-message';
-import NotFound from '@/components/ui/not-found';
 import SelectCountry from '@/components/shops/select-country';
 import { useEffect, useState } from 'react';
 export { getStaticProps } from '@/utilities/shops-page.ssr';

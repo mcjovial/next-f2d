@@ -1,5 +1,6 @@
 import type {
   CategoryQueryOptions,
+  CountryData,
   HomePageProps,
   PopularProductQueryOptions,
   SettingsQueryOptions,
@@ -15,6 +16,7 @@ import {
   CATEGORIES_PER_PAGE,
   PRODUCTS_PER_PAGE,
 } from './client/variables';
+import axios from 'axios';
 
 type ParsedQueryParams = {
   pages: string[];
@@ -29,9 +31,71 @@ export const getStaticProps: GetStaticProps<
     [API_ENDPOINTS.SETTINGS, { language: locale }],
     ({ queryKey }) => client.settings.all(queryKey[1] as SettingsQueryOptions)
   );
+
+  const fetchCurrencyInfo = async (countryName: string): Promise<CountryData> => {
+    try {
+      const response = await axios.get(`https://restcountries.com/v3/name/${countryName}`);
+      return response.data[0];
+    } catch (error) {
+      console.error('Error fetching currency information:', error.message);
+      return { name: 'Unknown Country', currencies: [] };
+    }
+  };
+  
+  const reverseGeocode = async (lat: number, lng: number): Promise<CountryData> => {
+    try {
+      const response = await axios.get(
+        `https://maps.googleapis.com/maps/api/geocode/json?latlng=${lat},${lng}&key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`
+      );
+      if (response.data && response.data.results.length > 0) {
+        const addressComponents = response.data.results[0].address_components;
+        const countryData: CountryData = {
+          name: '',
+          currencies: [],
+        };
+
+        for (const component of addressComponents) {
+          if (component.types.includes('country')) {
+            countryData.name = component.long_name;
+          }
+        }
+
+        if (countryData.name) {
+          // Fetch currency information for the country
+          const currencyData = await fetchCurrencyInfo(countryData.name);
+          countryData.currencies = currencyData.currencies;
+        }
+
+        return countryData;
+      }
+    } catch (error) {
+      console.error('Error fetching address:', error.message);
+    }
+    return { name: 'Unknown Country', currencies: [] };
+  };
+
+  const fetchCurrency = async () => {
+    try {
+      const geolocationApiResponse = await axios.post(
+        `https://www.googleapis.com/geolocation/v1/geolocate?key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`
+      );
+      const { lat, lng } = geolocationApiResponse.data.location;        
+
+      // Call the reverse geocoding function to get the country
+      const countryData = await reverseGeocode(lat, lng);
+      const country =countryData.name;
+      const currency = Object.keys(countryData.currencies)[0];
+      return currency;
+    } catch (error) {
+      console.error('Error fetching geolocation data:', error.message);
+    }
+  }
+
+  const customerCountryCurrency = await fetchCurrency();
+
   const productVariables = {
     limit: PRODUCTS_PER_PAGE,
-    currency: 'NGN'
+    currency: customerCountryCurrency
   };
   await queryClient.prefetchInfiniteQuery(
     [API_ENDPOINTS.PRODUCTS, { limit: PRODUCTS_PER_PAGE, /*type: pageType,*/ language: locale }],

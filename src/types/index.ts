@@ -7,6 +7,14 @@ export type NextPageWithLayout<P = {}> = NextPage<P> & {
   getLayout?: (page: ReactElement) => ReactNode;
 };
 
+export interface CountryData {
+  name: string;
+  currencies: {
+    code: string;
+    name: string;
+  }[];
+}
+
 export interface HomePageProps {
   variables: HomePageVariables;
 }

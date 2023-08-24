@@ -1,17 +1,10 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
+import { CountryData } from '@/types';
 
 interface Coordinates {
   lat: number;
   lng: number;
-}
-
-interface CountryData {
-  name: string;
-  currencies: {
-    code: string;
-    name: string;
-  }[];
 }
 
 const useGeolocation = (): { country: string; currency: string; location: Coordinates } => {
