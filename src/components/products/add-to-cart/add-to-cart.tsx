@@ -3,6 +3,7 @@ import AddToCartBtn from '@/components/products/add-to-cart/add-to-cart-btn';
 import { cartAnimation } from '@/lib/cart-animation';
 import { useCart } from '@/store/quick-cart/cart.context';
 import { generateCartItem } from '@/store/quick-cart/generate-cart-item';
+import { toast } from 'react-toastify';
 
 interface Props {
   data: any;
@@ -40,6 +41,7 @@ export const AddToCart = ({
     isInStock,
     getItemFromCart,
     isInCart,
+    isSameCurrency,
     updateCartLanguage,
     language
   } = useCart();
@@ -54,9 +56,14 @@ export const AddToCart = ({
     if (item?.language !== language){
       updateCartLanguage(item?.language);
     }
-    addItemToCart(item, 1);
-    if (!isInCart(item.id)) {
-      cartAnimation(e);
+
+    if (isSameCurrency(item)) {
+      addItemToCart(item, 1);
+      if (!isInCart(item.id)) {
+        cartAnimation(e);
+      }
+    } else {
+      toast.warn('Order accross-currencies not allowed')
     }
   };
   const handleRemoveClick = (e: any) => {

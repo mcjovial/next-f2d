@@ -19,6 +19,7 @@ const Helium: React.FC<HeliumProps> = ({ product, className }) => {
   const { price, basePrice, discount } = usePrice({
     amount: product.sale_price ? product.sale_price : product.price!,
     baseAmount: product.price,
+    currencyCode: product.shop.currency
   });
 
   const { openModal } = useModalAction();

@@ -13,6 +13,7 @@ interface CartProviderState extends State {
   clearItemFromCart: (id: Item['id']) => void;
   getItemFromCart: (id: Item['id']) => any | undefined;
   isInCart: (id: Item['id']) => boolean;
+  isSameCurrency: (product: Item) => boolean;
   isInStock: (id: Item['id']) => boolean;
   resetCart: () => void;
   updateCartLanguage: (language: string) => void;
@@ -62,6 +63,13 @@ export const CartProvider: React.FC = (props) => {
     (id: Item['id']) => !!getItem(state.items, id),
     [state.items]
   );
+  const isSameCurrency = useCallback((product: Item) => {
+    if (state.items.length === 0) {
+      return true;
+    }
+      
+    return state.items.every(item => item.currency === product.currency);
+  }, [state.items]);
   const getItemFromCart = useCallback(
     (id: Item['id']) => getItem(state.items, id),
     [state.items]
@@ -82,11 +90,12 @@ export const CartProvider: React.FC = (props) => {
       clearItemFromCart,
       getItemFromCart,
       isInCart,
+      isSameCurrency,
       isInStock,
       resetCart,
       updateCartLanguage
     }),
-    [getItemFromCart, isInCart, isInStock, state]
+    [getItemFromCart, isInCart, isSameCurrency, isInStock, state]
   );
   return <cartContext.Provider value={value} {...props} />;
 };

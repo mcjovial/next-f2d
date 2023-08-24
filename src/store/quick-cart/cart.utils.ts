@@ -4,6 +4,7 @@ export interface Item {
   price: number;
   quantity?: number;
   stock?: number;
+  currency?: string;
   [key: string]: any;
 }
 

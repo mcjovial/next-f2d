@@ -56,6 +56,7 @@ export function generateCartItem(item: Item, variation: Variation) {
     slug,
     unit,
     shop_id: shop.id,
+    currency: shop.currency,
     image: image,
     stock: quantity,
     price: Number(sale_price ? sale_price : price),

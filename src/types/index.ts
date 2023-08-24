@@ -302,6 +302,7 @@ export interface Shop {
   description: string;
   cover_image: string;
   logo: string;
+  currency: string;
   link?: string;
   address: {
     lat: string;

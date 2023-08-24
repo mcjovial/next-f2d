@@ -11,15 +11,11 @@ export function formatPrice({
   currencyCode: string;
   locale: string;
 }) {
-  // const formatCurrency = new Intl.NumberFormat(locale, {
-  //   style: 'currency',
-  //   currency: currencyCode,
-  // });
   const formatCurrency = () => {
     return currencyCode + ' ' + amount;
   }
 
-  return formatCurrency;
+  return formatCurrency();
 }
 
 export function formatVariantPrice({
