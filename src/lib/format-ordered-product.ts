@@ -5,5 +5,6 @@ export function formatOrderedProduct(product: any) {
     order_quantity: product?.quantity,
     unit_price: product?.price,
     subtotal: product?.itemTotal,
+    currency: product.currency
   };
 }

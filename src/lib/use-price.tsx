@@ -57,24 +57,21 @@ export default function usePrice(data: PriceProps) {
   const router = useRouter();
   const { currency: selectedCurrency } = router.query;
 
-  const customerCurrency = selectedCurrency || currency
+  const customerCurrency = selectedCurrency || currency;
 
-  // const { amount, baseAmount, currencyCode = currency } = data ?? {};
-  const amount = data.amount;
-  const baseAmount = data?.baseAmount;
-  const currencyCode = data?.currencyCode || customerCurrency;
-  
+  const amount = data.amount || 0; // Default to 0 if amount is not provided
+  const baseAmount = data.baseAmount || 0; // Default to 0 if baseAmount is not provided
+  const currencyCode = data.currencyCode || customerCurrency;
+
   const { locale } = useRouter();
   const currentLocale = locale ? locale : 'en';
 
-  const value = baseAmount ? formatVariantPrice({
+  const value = formatVariantPrice({
     amount,
     baseAmount,
     currencyCode,
     locale: currentLocale,
-  }) : formatPrice({ amount, currencyCode, locale: currentLocale });
+  });
   
-  return typeof value === 'string'
-    ? { price: value, basePrice: null, discount: null }
-    : value;
+  return value;
 }

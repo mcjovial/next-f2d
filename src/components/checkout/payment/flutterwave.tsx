@@ -52,7 +52,7 @@ const FlutterwavePayment = () => {
     public_key,
     tx_ref: Date.now().toString(),
     amount: verifiedResponse?.amount!,
-    currency,
+    currency: verifiedResponse?.products[0].currency,
     payment_options: 'card,mobilemoney,ussd',
     customer: {
       email: me?.email!,

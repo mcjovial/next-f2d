@@ -40,21 +40,25 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
 
   const { price: tax } = usePrice({
     amount: verifiedResponse?.total_tax ?? 0,
+    currencyCode: verifiedResponse?.products[0].currency
   });
 
   const { price: shipping } = usePrice({
     amount: verifiedResponse?.shipping_charge ?? 0,
+    currencyCode: verifiedResponse?.products[0].currency
   });
 
   const base_amount = calculateTotal(available_items);
   const { price: sub_total } = usePrice({
     amount: base_amount,
+    currencyCode: verifiedResponse?.products[0].currency
   });
 
   const { price: discountPrice } = usePrice(
     //@ts-ignore
     {
       amount: Number(discount),
+      currencyCode: verifiedResponse?.products[0].currency
     }
   );
   const totalPrice = verifiedResponse
@@ -69,6 +73,7 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
     : 0;
   const { price: total } = usePrice({
     amount: totalPrice <= 0 ? 0 : totalPrice,
+    currencyCode: verifiedResponse?.products[0].currency
   });
   return (
     <div className={className}>
@@ -120,13 +125,13 @@ const VerifiedItemList: React.FC<Props> = ({ className }) => {
           <span className="text-base font-semibold text-heading">{total}</span>
         </div>
       </div>
-      {verifiedResponse && (
+      {/* {verifiedResponse && (
         <Wallet
           totalPrice={totalPrice}
           walletAmount={verifiedResponse.wallet_amount}
           walletCurrency={verifiedResponse.wallet_currency}
         />
-      )}
+      )} */}
       {use_wallet && !Boolean(payableAmount) ? null : (
         <PaymentGrid className="mt-10 border border-gray-200 bg-light p-5" />
       )}

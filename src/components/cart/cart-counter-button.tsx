@@ -8,10 +8,11 @@ import { useTranslation } from 'next-i18next';
 
 const CartCounterButton = () => {
   const { t } = useTranslation();
-  const { totalUniqueItems, total } = useCart();
+  const { totalUniqueItems, total, items } = useCart();
   const [_, setDisplayCart] = useAtom(drawerAtom);
   const { price: totalPrice } = usePrice({
     amount: total,
+    currencyCode: items[0].currency
   });
   function handleCartSidebar() {
     setDisplayCart({ display: true, view: 'cart' });

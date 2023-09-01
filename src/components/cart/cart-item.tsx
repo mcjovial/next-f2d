@@ -19,9 +19,11 @@ const CartItem = ({ item }: CartItemProps) => {
 
   const { price } = usePrice({
     amount: item.price,
+    currencyCode: item.currency
   });
   const { price: itemPrice } = usePrice({
     amount: item.itemTotal,
+    currencyCode: item.currency
   });
   function handleIncrement(e: any) {
     e.stopPropagation();

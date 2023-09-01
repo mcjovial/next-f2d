@@ -12,6 +12,7 @@ const UnverifiedItemList = ({ hideTitle = false }: { hideTitle?: boolean }) => {
   const { price: subtotal } = usePrice(
     items && {
       amount: total,
+      currencyCode: items[0].currency
     }
   );
   return (

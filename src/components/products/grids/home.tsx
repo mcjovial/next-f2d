@@ -23,7 +23,8 @@ export default function ProductGridHome({
       ...(query.category && { categories: query.category }),
       ...(query.text && { name: query.text }),
     });
-  const productsItem:any = products;
+  const productsItem: any = products;
+  
   return (
     <Grid
       products={productsItem}

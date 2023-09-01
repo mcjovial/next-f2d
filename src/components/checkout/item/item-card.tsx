@@ -10,6 +10,7 @@ const ItemCard = ({ item, notAvailable }: Props) => {
   const { t } = useTranslation('common');
   const { price } = usePrice({
     amount: item.itemTotal,
+    currencyCode: item.currency
   });
   return (
     <div className="flex justify-between py-2">
