@@ -38,6 +38,7 @@ const CartItem = ({ item }: CartItemProps) => {
     removeItemFromCart(item.id);
   };
   const outOfStock = !isInStock(item.id);
+  
   return (
     <motion.div
       layout

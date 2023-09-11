@@ -36,8 +36,9 @@ const CartSidebarView = () => {
 
   const { price: totalPrice } = usePrice({
     amount: total,
-    currencyCode: items[0].currency
+    currencyCode: items[0]?.currency
   });
+  
   return (
     <section className="relative flex h-full flex-col">
       <header className="fixed top-0 z-10 flex w-full max-w-md items-center justify-between border-b border-border-200 border-opacity-75 bg-light py-4 px-6">

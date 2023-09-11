@@ -26,6 +26,7 @@ function Home({ variables }: HomePageProps) {
   const router = useRouter();
   const { currency } = router.query;
   const [hybridVars, setHybridVars] = useState<HomePageVariables>(variables)
+  console.log(variables);
   
   useEffect(() => {
     if (currency) {

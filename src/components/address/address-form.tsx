@@ -16,7 +16,10 @@ type FormValues = {
   type: AddressType;
   country: string;
   selectedLocation: Record<string, any>;
-  address: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  street_address?: string;
 };
 
 type Location = {

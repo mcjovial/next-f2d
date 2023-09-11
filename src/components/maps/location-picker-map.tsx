@@ -16,7 +16,7 @@ interface LocationPickerMapProps extends GoogleMapProps {
 const LocationPickerMap = withScriptjs(
   withGoogleMap(({ onLocationSelect, defaultLat, defaultLng }: LocationPickerMapProps) => {
     const handleMapClick = (e: google.maps.MouseEvent) => {
-      const { lat, lng } = e.latLng.toJSON();
+      const { lat, lng } = e.latLng!.toJSON();
       onLocationSelect({ lat, lng });
     };
 

@@ -44,7 +44,7 @@ const PrimoMap: React.FC<Props> = ({onSubmit, defaultValues, crud = true}) => {
       if (response.data && response.data.results.length > 0) {
         setAddress(response.data.results[0].formatted_address);
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching address:', error.message);
     }
   };

@@ -12,7 +12,7 @@ export function formatPrice({
   locale: string;
 }) {
   const formatCurrency = () => {
-    return currencyCode + ' ' + amount;
+    return currencyCode ? currencyCode + ' ' + amount : amount;
   }
 
   return formatCurrency();

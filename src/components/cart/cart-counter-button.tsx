@@ -10,9 +10,10 @@ const CartCounterButton = () => {
   const { t } = useTranslation();
   const { totalUniqueItems, total, items } = useCart();
   const [_, setDisplayCart] = useAtom(drawerAtom);
+  
   const { price: totalPrice } = usePrice({
     amount: total,
-    currencyCode: items[0].currency
+    currencyCode: items[0]?.currency
   });
   function handleCartSidebar() {
     setDisplayCart({ display: true, view: 'cart' });

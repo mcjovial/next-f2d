@@ -36,7 +36,7 @@ export const getStaticProps: GetStaticProps<
     try {
       const response = await axios.get(`https://restcountries.com/v3/name/${countryName}`);
       return response.data[0];
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching currency information:', error.message);
       return { name: 'Unknown Country', currencies: [] };
     }
@@ -68,7 +68,7 @@ export const getStaticProps: GetStaticProps<
 
         return countryData;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching address:', error.message);
     }
     return { name: 'Unknown Country', currencies: [] };
@@ -86,7 +86,7 @@ export const getStaticProps: GetStaticProps<
       const country =countryData.name;
       const currency = Object.keys(countryData.currencies)[0];
       return currency;
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching geolocation data:', error.message);
     }
   }
@@ -146,5 +146,4 @@ settings: 2kB,
 perProduct: 4.2 * 30 = 120kB,
 total = 14 + 30 + 22 + 8 + 2 + 2 + 120 = 198kB
 others: 225 - 198 = 27kB
-
  */
