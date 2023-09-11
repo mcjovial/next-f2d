@@ -24,14 +24,6 @@ type Props = {
 const ShopsGrid = (props: Props) => {
   const { t } = useTranslation();
 
-  if (!props.isLoading && !props.shops.length) {
-    return (
-      <div className='min-h-full px-4 pt-6 pb-8 bg-gray-100 lg:p-8'>
-        <NotFound text='text-no-shops' />
-      </div>
-    );
-  }
-
   return (
     <>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">

@@ -11,6 +11,7 @@ import { useShops } from '@/utilities/queries/shop';
 import ErrorMessage from '@/components/ui/error-message';
 import SelectCountry from '@/components/shops/select-country';
 import { useEffect, useState } from 'react';
+import NotFound from '@/components/ui/not-found';
 export { getStaticProps } from '@/utilities/shops-page.ssr';
 
 const ShopsPage: NextPageWithLayout = () => {
@@ -32,7 +33,58 @@ const ShopsPage: NextPageWithLayout = () => {
     
   if (error) return <ErrorMessage message={error.message} />;
   
-  if (!shops.length) return <p>Loading</p>
+  if (!shops.length) {
+    return (
+      <>
+        <div className="min-h-screen bg-light ">
+          <div className="mx-auto flex w-full max-w-6xl flex-col p-8 pt-14">
+            <div className='flex justify-between items-start'>
+              <h3 className="mb-8 text-2xl font-bold text-heading">
+                {t('text-shops-nearby')}
+              </h3>
+              <SelectCountry selectedContry={selectedContry} setSelectedContry={setSelectedContry} />
+            </div>
+  
+            <Tab.Group>
+              <Tab.List className="flex space-x-1 rounded-lg bg-slate-400/20 p-1 mb-3">
+                <Tab
+                  className={({ selected }) =>
+                    classNames(
+                      'w-full rounded py-2.5 text-sm font-medium leading-5 text-white',
+                      'ring-white ring-opacity-60 ring-offset-2 ring-offset-amber-500 focus:outline-none focus:ring-2',
+                      selected
+                        ? 'bg-accent shadow'
+                        : 'text-white hover:bg-white/[0.12] hover:text-amber-600'
+                    )
+                  }
+                >
+                  Map view
+                </Tab>
+                <Tab
+                  className={({ selected }) =>
+                    classNames(
+                      'w-full rounded py-2.5 text-sm font-medium leading-5 text-white',
+                      'ring-white ring-opacity-60 ring-offset-2 ring-offset-amber-500 focus:outline-none focus:ring-2',
+                      selected
+                        ? 'bg-accent shadow'
+                        : 'text-white hover:bg-white/[0.12] hover:text-amber-600'
+                    )
+                  }
+                >
+                  Grid view
+                </Tab>
+              </Tab.List>
+              <Tab.Panels>
+                <Tab.Panel><NotFound text='text-no-shops' /></Tab.Panel>
+                <Tab.Panel><NotFound text='text-no-shops' /></Tab.Panel>
+              </Tab.Panels>
+            </Tab.Group>
+          </div>
+        </div>
+      </>
+    );
+  }
+
   return (
     <>
       <div className="min-h-screen bg-light ">

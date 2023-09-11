@@ -4,15 +4,6 @@ import { Shop } from '@/types';
 import NotFound from '../ui/not-found';
 
 const ShopMapPage: React.FC<{ shops: Shop[], isLoading: boolean }> = ({ shops, isLoading }) => {
-  
-  if (!isLoading && !shops.length) {
-    return (
-      <div className='min-h-full px-4 pt-6 pb-8 bg-gray-100 lg:p-8'>
-        <NotFound text='text-no-shops' />
-      </div>
-    );
-  }
-
   return (
     <div style={{ width: '100%', height: '500px' }}>
       <WrappedMap
