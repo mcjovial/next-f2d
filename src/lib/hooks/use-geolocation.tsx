@@ -7,9 +7,9 @@ interface Coordinates {
   lng: number;
 }
 
-const useGeolocation = (): { country: string; currency: string; location: Coordinates } => {
+const useGeolocation = (): { country: string | undefined; currency: string; location: Coordinates } => {
   const [location, setLocation] = useState<Coordinates>({ lat: 0, lng: 0 });
-  const [country, setCountry] = useState<string>('Unknown Country');
+  const [country, setCountry] = useState<string | undefined>();
   const [currency, setCurrency] = useState<string>('Unknown Currency');
 
   useEffect(() => {
@@ -24,8 +24,8 @@ const useGeolocation = (): { country: string; currency: string; location: Coordi
         // Call the reverse geocoding function to get the country
         const countryData = await reverseGeocode(lat, lng);
         setCountry(countryData.name);
-        setCurrency(Object.keys(countryData.currencies)[0] || 'Unknown Currency');
-      } catch (error) {
+        setCurrency(Object.keys(countryData.currencies)[0]);
+      } catch (error: any) {
         console.error('Error fetching geolocation data:', error.message);
       }
     };
@@ -59,7 +59,7 @@ const useGeolocation = (): { country: string; currency: string; location: Coordi
 
         return countryData;
       }
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching address:', error.message);
     }
     return { name: 'Unknown Country', currencies: [] };
@@ -69,7 +69,7 @@ const useGeolocation = (): { country: string; currency: string; location: Coordi
     try {
       const response = await axios.get(`https://restcountries.com/v3/name/${countryName}`);
       return response.data[0];
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error fetching currency information:', error.message);
       return { name: 'Unknown Country', currencies: [] };
     }

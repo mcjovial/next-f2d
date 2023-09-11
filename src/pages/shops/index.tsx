@@ -19,19 +19,20 @@ const ShopsPage: NextPageWithLayout = () => {
   const { t } = useTranslation('common');
   const limit = SHOPS_LIMIT;
   
+  useEffect(() => {
+    setSelectedContry(country)
+  }, [country])
+
   const { shops, isLoading, isLoadingMore, hasMore, loadMore, error } =
     useShops({
       limit,
       is_active: 1,
       country: selectedContry
     });
-
-  useEffect(() => {
-    setSelectedContry(country)
-  }, [country])
     
   if (error) return <ErrorMessage message={error.message} />;
   
+  if (!shops.length) return <p>Loading</p>
   return (
     <>
       <div className="min-h-screen bg-light ">
