@@ -10,8 +10,10 @@ interface Props {
 
 const OrderStatuses = ({ status, language }: Props) => {
   const { orderStatuses, isLoading, error } = useOrderStatuses({
-    limit: 100,
-    language: language
+    orderBy: 'serial',
+    sortedBy: 'asc'
+    // limit: 100,
+    // language: language
   });
 
   if (isLoading) return <Spinner showText={false} className="h-[200px]" />;

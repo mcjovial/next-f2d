@@ -10,6 +10,11 @@ import { useModalAction } from '@/components/ui/modal/modal.context';
 import { SadFaceIcon } from '@/components/icons/sad-face';
 import Badge from '@/components/ui/badge';
 import type { Order } from '@/types';
+import { MapPin } from '../icons/map-pin';
+import { hasCompletedTrip, hasOngoingTrip, ongoingTrip } from '@/utilities/trip.utils';
+import { FundsIcon } from '../icons/funds';
+import { useCompleteTripMutation } from '@/utilities/queries/trip';
+import { toast } from 'react-toastify';
 
 interface Props {
   order: Order;
@@ -64,7 +69,7 @@ function RefundView({
 }) {
   const { t } = useTranslation('common');
   const { openModal } = useModalAction();
-  
+
   return (
     <>
       {status ? (
@@ -92,7 +97,7 @@ const OrderDetails = ({ order }: Props) => {
     shipping_address,
     tracking_number,
     refund,
-  } : any = order ?? {};
+  }: any = order ?? {};
 
   const { price: amount } = usePrice({
     amount: order?.amount,
@@ -109,6 +114,36 @@ const OrderDetails = ({ order }: Props) => {
   const { price: sales_tax } = usePrice({
     amount: order?.sales_tax,
   });
+  const { openModal } = useModalAction();
+
+  // console.log(order);
+  const { mutate: completeTrip } = useCompleteTripMutation();
+
+  const handleOpenOngoingTrip = () => {
+    openModal('ACTIVE_TRIP', {
+      origin: { lat: order?.shop?.address?.lat, lng: order.shop.address.lng },
+      destination: {
+        lat: order.shipping_address.lat,
+        lng: order.shipping_address.lng,
+      },
+    });
+  };
+
+  const handleDeliveryPayment = () => {
+    const deliveryTrip = ongoingTrip(order.trips)
+    completeTrip(
+      { id: deliveryTrip.id as string, cost: 3000 },
+      {
+        onSuccess: () => {
+          toast.success('Order delivered successfully')
+          // console.log('Order delivered successfully');
+        },
+        onError: (error) => {
+          console.error(error);
+        }
+      }
+    );
+  };
 
   return (
     <div className="flex w-full flex-col border border-border-200 bg-white lg:w-2/3">
@@ -117,6 +152,24 @@ const OrderDetails = ({ order }: Props) => {
           {t('text-order-details')} <span className="px-2">-</span>{' '}
           {tracking_number}
         </h2>
+        {hasCompletedTrip(order.trips) && hasOngoingTrip(order.trips) && (
+          <div className="flex flex-row space-x-2">
+            <button
+              onClick={handleOpenOngoingTrip}
+              className="flex text-sm font-semibold text-blue-500"
+            >
+              <MapPin width={20} className="ltr:mr-2 rtl:ml-2" />
+              <span>View Trip</span>
+            </button>
+            <button
+              onClick={handleDeliveryPayment}
+              className="flex text-sm font-semibold text-green-500"
+            >
+              <FundsIcon width={20} className="ltr:mr-2 rtl:ml-2" />
+              <span> Delivered</span>
+            </button>
+          </div>
+        )}
         <div className="flex items-center">
           <RefundView status={refund?.status} orderId={id} />
 

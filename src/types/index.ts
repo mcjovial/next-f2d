@@ -310,6 +310,20 @@ export interface Shop {
   }
 }
 
+export interface Trip {
+  id: string;
+  created_at: string;
+  updated_at: string;
+  deleted_at?: string;
+  origin_lng: string;
+  origin_lat: string;
+  destination_lng: string;
+  destination_lat: string;
+  status: string;
+  order: Order;
+  courier: any;
+}
+
 export interface Product {
   id: string;
   name: string;

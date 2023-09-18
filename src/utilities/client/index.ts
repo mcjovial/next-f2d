@@ -182,6 +182,10 @@ class Client {
         input
       ),
   };
+
+  trips = {
+    complete: ({ id, cost }: { id: string, cost: number }) => HttpClient.post(`${API_ENDPOINTS.TRIPS_COMPLETE}/${id}`, { cost })
+  }
 }
 
 const client = new Client();

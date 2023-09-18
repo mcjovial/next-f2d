@@ -1,15 +1,10 @@
-import { SHOPS_LIMIT } from '@/lib/constants';
-import { useShops } from '@/utilities/queries/shop';
 import React, { memo } from 'react';
-import ErrorMessage from '../ui/error-message';
-import NotFound from '../ui/not-found';
 import rangeMap from '@/utilities/range-map';
 import CouponLoader from '../ui/loaders/content-loader';
 import ShopCard from '../ui/cards/shop';
 import Button from '@/components/ui/button';
 import { useTranslation } from 'next-i18next';
 import { getLayout } from '../layouts/layout';
-import useGeolocation from '@/lib/hooks/use-geolocation';
 import { Shop } from '@/types';
 
 type Props = {

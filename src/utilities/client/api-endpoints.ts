@@ -36,4 +36,6 @@ export const API_ENDPOINTS = {
   ORDERS_CHECKOUT_VERIFY: '/orders/checkout/verify',
   COUPONS: '/coupons',
   COUPONS_VERIFY: '/coupons/verify',
+  TRIPS: '/trips',
+  TRIPS_COMPLETE: '/trips/complete',
 }

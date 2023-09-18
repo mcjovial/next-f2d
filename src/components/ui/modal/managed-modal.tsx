@@ -1,6 +1,7 @@
 import dynamic from "next/dynamic";
 import Modal from "./modal";
 import { useModalAction, useModalState } from "./modal.context";
+import ActiveTrip from "@/components/orders/active-trip";
 
 const Login = dynamic(() => import('@/components/auth/login-form'), {
   ssr: false,
@@ -47,6 +48,7 @@ const ManagedModal = () => {
       )}
       {view === 'ADD_OR_UPDATE_ADDRESS' && <CreateOrUpdateAddressForm />}
       {view === 'DELETE_ADDRESS' && <AddressDeleteView />}
+      {view === 'ACTIVE_TRIP' && <ActiveTrip />}
     </Modal>
   )
 }
