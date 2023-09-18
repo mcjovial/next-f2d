@@ -117,12 +117,12 @@ export function useRegister() {
   );
 
   const { mutate, isLoading } = useMutation(client.users.register, {
-    onSuccess: (data) => {
-      if (data?.token && data?.roles?.length) {
-        setToken(data?.token);
-        setAuthorized(true);
+    onSuccess: (data) => {      
+      if (data?.success) {
+        // setToken(data?.token);
+        // setAuthorized(true);
         closeModal();
-        toast.success('Signup Successful, Verification mail has been sent')
+        toast.success(data.message);
         return;
       }
       // if (!data.token) {
