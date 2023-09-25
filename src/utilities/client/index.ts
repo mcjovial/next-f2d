@@ -67,7 +67,6 @@ class Client {
   categories = {
     all: ({ type, ...params }: Partial<CategoryQueryOptions>) =>
       HttpClient.get<CategoryPaginator>(API_ENDPOINTS.CATEGORIES, {
-        searchJoin: 'and',
         ...params,
         ...(type && { search: HttpClient.formatSearchParams({ type }) }),
       }),
@@ -137,8 +136,6 @@ class Client {
     get: ({ slug, language }: GetParams) =>
       HttpClient.get<Product>(`${API_ENDPOINTS.PRODUCTS}/${slug}`, {
         language,
-        searchJoin: 'and',
-        with: 'categories;shop;type;variations;variations.attribute.values;manufacturer;variation_options;tags;author',
       }),
 
     createFeedback: (input: CreateFeedbackInput) =>
